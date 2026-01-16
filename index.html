@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pedro | Dev Full Stack</title>
+    <title>Desenjao | Dev Full Stack</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
     <style>
         :root {
             --bg-primary: #0a0a0a;
@@ -92,8 +96,14 @@
         .loader-dot:nth-child(3) { animation-delay: 0s; }
 
         @keyframes loaderBounce {
-            0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
-            40% { transform: scale(1); opacity: 1; }
+            0%, 80%, 100% {
+                transform: scale(0);
+                opacity: 0.5;
+            }
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         /* Skeleton Loading */
@@ -111,12 +121,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.05),
-                transparent
-            );
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
             animation: shimmer 1.5s infinite;
         }
 
@@ -125,38 +130,14 @@
             100% { transform: translateX(100%); }
         }
 
-        .skeleton-text {
-            height: 1em;
-            margin-bottom: 0.5em;
-            border-radius: 4px;
-        }
-
-        .skeleton-title {
-            height: 2.5em;
-            width: 80%;
-            margin-bottom: 1em;
-        }
-
-        .skeleton-circle {
-            border-radius: 50%;
-        }
-
         .skeleton-card {
             height: 280px;
             border-radius: var(--border-radius);
         }
 
-        .content-loaded .skeleton {
-            display: none;
-        }
-
-        .content-loaded .real-content {
-            display: block;
-        }
-
-        .real-content {
-            display: none;
-        }
+        .content-loaded .skeleton { display: none; }
+        .content-loaded .real-content { display: block; }
+        .real-content { display: none; }
 
         /* Container */
         .container {
@@ -181,7 +162,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
+            background-image:
                 linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
             background-size: 60px 60px;
@@ -203,6 +184,18 @@
         .glow-orb-1 { top: -200px; right: -200px; }
         .glow-orb-2 { bottom: -200px; left: -200px; }
 
+        /* Matrix Rain Canvas */
+        #matrix-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
         /* Typography */
         h1, h2, h3, h4 {
             font-weight: 700;
@@ -210,7 +203,7 @@
             letter-spacing: -0.02em;
         }
 
-        h1 { font-size: clamp(2.25rem, 6vw, 4rem); }
+        h1 { font-size: clamp(2rem, 6vw, 3.5rem); }
         h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
         h3 { font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
 
@@ -252,74 +245,45 @@
 
         /* Hero Section */
         .hero {
-            min-height: 100vh;
             min-height: 100dvh;
             display: flex;
             align-items: center;
             padding: 2rem 0;
             position: relative;
+            overflow: hidden;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
         }
 
         .hero-content {
-            display: grid;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        @media (min-width: 1024px) {
-            .hero-content {
-                grid-template-columns: 1fr auto;
-                gap: 4rem;
-            }
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            text-align: center;
         }
 
         .hero-text h1 {
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem;
         }
 
-        .hero-text h1 span {
-            display: block;
-        }
-
-        .highlight {
+        .hero-text h2 {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 500;
             color: var(--accent);
-            position: relative;
-        }
-
-        .highlight::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--accent);
-            transform: scaleX(0);
-            transform-origin: left;
-            animation: lineReveal 0.8s ease 0.5s forwards;
-        }
-
-        @keyframes lineReveal {
-            to { transform: scaleX(1); }
+            margin-bottom: 0.75rem;
         }
 
         .hero-subtitle {
-            font-size: clamp(1.125rem, 2.5vw, 1.5rem);
             color: var(--text-secondary);
-            margin-bottom: 2rem;
-            max-width: 500px;
-        }
-
-        .hero-cta {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        @media (min-width: 480px) {
-            .hero-cta {
-                flex-direction: row;
-            }
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            max-width: 32ch;
+            margin: 0 auto;
         }
 
         /* Profile Card */
@@ -327,18 +291,12 @@
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--border-radius);
-            padding: 2rem;
+            padding: 1.5rem;
             text-align: center;
             transition: var(--transition);
             width: 100%;
-            max-width: 320px;
+            max-width: 300px;
             margin: 0 auto;
-        }
-
-        @media (min-width: 1024px) {
-            .profile-card {
-                margin: 0;
-            }
         }
 
         .profile-card:hover {
@@ -348,13 +306,12 @@
         }
 
         .profile-photo {
-            width: 140px;
-            height: 140px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            margin: 0 auto 1.5rem;
+            margin: 0 auto 1rem;
             overflow: hidden;
             border: 3px solid var(--accent-subtle);
-            position: relative;
             background: var(--bg-tertiary);
             display: flex;
             align-items: center;
@@ -369,17 +326,17 @@
 
         .profile-photo .initials {
             font-family: var(--font-mono);
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 700;
             color: var(--accent);
         }
 
         .profile-name {
             font-family: var(--font-mono);
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: var(--accent);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -393,7 +350,7 @@
 
         .profile-tagline {
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .profile-status {
@@ -401,10 +358,10 @@
             align-items: center;
             gap: 0.5rem;
             background: rgba(0, 255, 156, 0.1);
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 0.8rem;
             border-radius: 20px;
-            margin-top: 1rem;
-            font-size: 0.85rem;
+            margin-top: 0.75rem;
+            font-size: 0.8rem;
             color: var(--accent);
         }
 
@@ -417,8 +374,67 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(0.8);
+            }
+        }
+
+        /* Hero CTA */
+        .hero-cta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        /* Desktop Layout */
+        @media (min-width: 768px) {
+            .hero .container {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                gap: 3rem;
+            }
+
+            .hero-content {
+                text-align: left;
+                flex: 1;
+                max-width: 520px;
+            }
+
+            .hero-subtitle {
+                margin: 0;
+            }
+
+            .hero-cta {
+                flex-direction: row;
+                max-width: none;
+                margin: 0;
+            }
+
+            .profile-card {
+                margin: 0;
+                flex-shrink: 0;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .profile-card {
+                padding: 2rem;
+                max-width: 320px;
+            }
+
+            .profile-photo {
+                width: 120px;
+                height: 120px;
+            }
         }
 
         /* Buttons */
@@ -426,11 +442,11 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 0.75rem;
-            padding: 1rem 1.75rem;
+            gap: 0.6rem;
+            padding: 0.875rem 1.5rem;
             font-family: var(--font-mono);
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.9rem;
             text-decoration: none;
             border-radius: var(--border-radius-sm);
             transition: var(--transition);
@@ -464,8 +480,6 @@
         .btn-whatsapp {
             background: #25D366;
             color: white;
-            font-size: 0.9rem;
-            padding: 0.75rem 1.25rem;
         }
 
         .btn-whatsapp:hover {
@@ -488,7 +502,7 @@
         /* Services Grid */
         .services-grid {
             display: grid;
-            gap: 1.5rem;
+            gap: 1.25rem;
             grid-template-columns: 1fr;
         }
 
@@ -508,7 +522,7 @@
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--border-radius);
-            padding: 1.75rem;
+            padding: 1.5rem;
             transition: var(--transition);
             display: flex;
             flex-direction: column;
@@ -529,7 +543,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1rem;
             color: var(--accent);
             transition: var(--transition);
         }
@@ -547,14 +561,14 @@
 
         .service-card h3 {
             color: var(--text-primary);
-            margin-bottom: 0.75rem;
-            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
         }
 
         .service-card p {
             color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
             flex-grow: 1;
         }
 
@@ -563,8 +577,14 @@
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--border-radius);
-            padding: 2rem;
+            padding: 1.5rem;
             margin-bottom: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .process-card {
+                padding: 2rem;
+            }
         }
 
         .process-card p {
@@ -597,8 +617,8 @@
         }
 
         .step-number {
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             background: var(--accent);
             color: var(--bg-primary);
             border-radius: 50%;
@@ -616,7 +636,7 @@
 
         .step-content p {
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: 0.875rem;
         }
 
         /* Tech Grid */
@@ -636,7 +656,7 @@
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--border-radius-sm);
-            padding: 1.5rem;
+            padding: 1.25rem;
             text-align: center;
             transition: var(--transition);
         }
@@ -650,17 +670,17 @@
             font-family: var(--font-mono);
             font-size: 1.5rem;
             color: var(--accent);
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
         }
 
         .tech-item h4 {
-            font-size: 1rem;
+            font-size: 0.95rem;
             margin-bottom: 0.25rem;
         }
 
         .tech-item p {
             color: var(--text-secondary);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
         }
 
         /* Focus Box */
@@ -668,19 +688,25 @@
             background: linear-gradient(135deg, var(--bg-card), var(--bg-tertiary));
             border: 1px solid var(--border-color);
             border-radius: var(--border-radius);
-            padding: 2rem;
+            padding: 1.5rem;
             text-align: center;
             margin-top: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .focus-box {
+                padding: 2rem;
+            }
         }
 
         .focus-badge {
             display: inline-block;
             background: var(--accent-subtle);
             color: var(--accent);
-            padding: 0.5rem 1.25rem;
+            padding: 0.4rem 1rem;
             border-radius: 20px;
             font-family: var(--font-mono);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             margin-bottom: 1rem;
             border: 1px solid rgba(0, 255, 156, 0.2);
         }
@@ -693,6 +719,7 @@
             color: var(--text-secondary);
             max-width: 500px;
             margin: 0 auto;
+            font-size: 0.9rem;
         }
 
         /* Clientele Grid */
@@ -712,7 +739,7 @@
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--border-radius-sm);
-            padding: 1.5rem;
+            padding: 1.25rem;
             text-align: center;
             transition: var(--transition);
         }
@@ -725,13 +752,13 @@
         .clientele-item h3 {
             color: var(--accent);
             font-family: var(--font-mono);
-            font-size: 1rem;
+            font-size: 0.9rem;
             margin-bottom: 0.5rem;
         }
 
         .clientele-item p {
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         /* Featured Project */
@@ -739,50 +766,61 @@
             background: linear-gradient(135deg, var(--bg-card), var(--bg-tertiary));
             border: 2px solid rgba(0, 255, 156, 0.2);
             border-radius: var(--border-radius);
-            padding: 2rem;
+            padding: 1.5rem;
             position: relative;
             overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .featured-project {
+                padding: 2rem;
+            }
         }
 
         .project-badge {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
+            display: inline-block;
             background: var(--accent);
             color: var(--bg-primary);
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 0.8rem;
             border-radius: 20px;
             font-family: var(--font-mono);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
+            margin-bottom: 1rem;
         }
 
         .project-title {
-            font-size: 1.5rem;
-            margin-bottom: 0.75rem;
-            padding-right: 140px;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
         }
 
         .project-desc {
             color: var(--text-secondary);
-            margin-bottom: 1.25rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
         }
 
         .project-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1rem;
         }
 
         .tag {
             background: var(--accent-subtle);
             color: var(--accent);
-            padding: 0.375rem 0.875rem;
+            padding: 0.3rem 0.7rem;
             border-radius: 4px;
             font-family: var(--font-mono);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             border: 1px solid rgba(0, 255, 156, 0.2);
+        }
+
+        .project-info {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
         }
 
         /* CTA Section */
@@ -790,10 +828,16 @@
             text-align: center;
             background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
             border-radius: var(--border-radius);
-            padding: 3rem 2rem;
+            padding: 2rem 1.5rem;
             margin: 2rem 0;
             position: relative;
             overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .cta-section {
+                padding: 3rem 2rem;
+            }
         }
 
         .cta-section::before {
@@ -814,13 +858,14 @@
         .cta-section p {
             color: var(--text-secondary);
             max-width: 500px;
-            margin: 0 auto 2rem;
+            margin: 0 auto 1.5rem;
+            font-size: 0.95rem;
         }
 
         .cta-buttons {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.75rem;
             align-items: center;
             justify-content: center;
         }
@@ -834,7 +879,7 @@
         /* Footer */
         footer {
             border-top: 1px solid var(--border-color);
-            padding: 3rem 0;
+            padding: 2.5rem 0;
             text-align: center;
         }
 
@@ -842,27 +887,28 @@
             font-family: var(--font-mono);
             font-size: 1.5rem;
             color: var(--accent);
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
         }
 
         .footer-tagline {
             color: var(--text-secondary);
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
         }
 
         .footer-links {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: 1.5rem;
             flex-wrap: wrap;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .footer-link {
             color: var(--text-secondary);
             text-decoration: none;
             font-family: var(--font-mono);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: var(--transition);
         }
 
@@ -872,7 +918,7 @@
 
         .copyright {
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         /* Animations */
@@ -911,7 +957,7 @@
         /* Scroll indicator */
         .scroll-indicator {
             position: absolute;
-            bottom: 2rem;
+            bottom: 1.5rem;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -919,14 +965,21 @@
             align-items: center;
             gap: 0.5rem;
             color: var(--text-secondary);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             animation: bounce 2s infinite;
+            z-index: 2;
         }
 
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-            40% { transform: translateX(-50%) translateY(-10px); }
-            60% { transform: translateX(-50%) translateY(-5px); }
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
         }
 
         .scroll-indicator svg {
@@ -934,7 +987,7 @@
             height: 20px;
         }
 
-        @media (max-height: 700px) {
+        @media (max-height: 600px) {
             .scroll-indicator {
                 display: none;
             }
@@ -947,9 +1000,13 @@
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
             }
+            #matrix-canvas {
+                display: none;
+            }
         }
     </style>
 </head>
+
 <body>
     <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
@@ -966,57 +1023,38 @@
     <div class="glow-orb glow-orb-2"></div>
 
     <main>
-        <!-- Hero Section -->
         <section class="hero" id="home">
+            <!-- Matrix Rain Canvas -->
+            <canvas id="matrix-canvas"></canvas>
+            
             <div class="container">
                 <div class="hero-content">
                     <div class="hero-text">
-                        <!-- Skeleton -->
-                        <div class="skeleton skeleton-title" style="width: 90%;"></div>
-                        <div class="skeleton skeleton-title" style="width: 70%;"></div>
-                        <div class="skeleton skeleton-text" style="width: 60%; height: 1.5em; margin-top: 1rem;"></div>
-                        <div style="display: flex; gap: 1rem; margin-top: 2rem;">
-                            <div class="skeleton" style="width: 150px; height: 52px; border-radius: 12px;"></div>
-                            <div class="skeleton" style="width: 150px; height: 52px; border-radius: 12px;"></div>
+                        <h1>Dev Full Stack</h1>
+                        <h2>para negócios locais</h2>
+                        <p class="hero-subtitle">Sites simples, rápidos e com resultado real.</p>
+                    </div>
+
+                    <div class="profile-card">
+                        <div class="profile-photo">
+                            <img src="img/profile.jpg" alt="">
                         </div>
-                        
-                        <!-- Real Content -->
-                        <div class="real-content">
-                            <h1 class="fade-up">
-                                <span>Dev <span class="highlight">Full Stack</span></span>
-                                <span>para <span class="highlight">negócios locais</span></span>
-                            </h1>
-                            <p class="hero-subtitle fade-up delay-1">
-                                Sites simples, rápidos e com resultado real.
-                            </p>
-                            <div class="hero-cta fade-up delay-2">
-                                <a href="#services" class="btn btn-primary">Ver serviços</a>
-                                <a href="https://wa.me/5589981202147?text=Olá%20Pedro!%20Vi%20seu%20portfólio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." class="btn btn-whatsapp" target="_blank" rel="noopener">
-                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-                                    Falar no WhatsApp
-                                </a>
-                            </div>
+                        <div class="profile-name">João Pereira</div>
+                        <div class="profile-tagline">Dev Full Stack • Foco em soluções práticas</div>
+                        <div class="profile-status">
+                            <span class="status-dot"></span>
+                            Disponível para projetos
                         </div>
                     </div>
 
-                    <div class="profile-card fade-up delay-3">
-                        <!-- Skeleton -->
-                        <div class="skeleton skeleton-circle" style="width: 140px; height: 140px; margin: 0 auto 1.5rem;"></div>
-                        <div class="skeleton skeleton-text" style="width: 80%; margin: 0 auto;"></div>
-                        <div class="skeleton skeleton-text" style="width: 60%; margin: 0.5rem auto;"></div>
-                        
-                        <!-- Real Content -->
-                        <div class="real-content">
-                            <div class="profile-photo">
-                                <img src="img/profile.jpg" alt="">
-                            </div>
-                            <div class="profile-name">João Pereira</div>
-                            <div class="profile-tagline">Dev Full Stack • Foco em soluções práticas</div>
-                            <div class="profile-status">
-                                <span class="status-dot"></span>
-                                Disponível para projetos
-                            </div>
-                        </div>
+                    <div class="hero-cta">
+                        <a href="#services" class="btn btn-primary">Ver serviços</a>
+                        <a href="https://wa.me/5589981202147" class="btn btn-whatsapp" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                            </svg>
+                            Falar no WhatsApp
+                        </a>
                     </div>
                 </div>
             </div>
@@ -1049,8 +1087,11 @@
                             </div>
                             <h3>Sites Institucionais</h3>
                             <p>Sites claros e organizados para negócios locais e profissionais.</p>
-                            <a href="https://wa.me/5589981202147?text=Olá%20Pedro!%20Tenho%20interesse%20em%20criar%20um%20site%20institucional%20para%20meu%20negócio.%20Podemos%20conversar?" class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener">
-                                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                            <a href="https://wa.me/5589981202147?text=Olá%20João!%20Tenho%20interesse%20em%20criar%20um%20site%20institucional%20para%20meu%20negócio.%20Podemos%20conversar?"
+                                class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener">
+                                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                                </svg>
                                 Quero um site
                             </a>
                         </div>
@@ -1068,8 +1109,11 @@
                             </div>
                             <h3>Landing Pages</h3>
                             <p>Páginas focadas em conversão para serviços e lançamentos.</p>
-                            <a href="https://wa.me/5589981202147?text=Olá%20Pedro!%20Preciso%20de%20uma%20landing%20page%20para%20meu%20produto/serviço.%20Podemos%20conversar?" class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener">
-                                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                            <a href="https://wa.me/5589981202147?text=Olá%20João!%20Preciso%20de%20uma%20landing%20page%20para%20meu%20produto/serviço.%20Podemos%20conversar?"
+                                class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener">
+                                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                                </svg>
                                 Criar landing page
                             </a>
                         </div>
@@ -1086,8 +1130,11 @@
                             </div>
                             <h3>Automações</h3>
                             <p>Integrações com Google Drive e Sheets para reduzir trabalho manual.</p>
-                            <a href="https://wa.me/5589981202147?text=Olá%20Pedro!%20Gostaria%20de%20automatizar%20processos%20no%20meu%20negócio.%20Pode%20me%20ajudar?" class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener">
-                                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                            <a href="https://wa.me/5589981202147?text=Olá%20João!%20Gostaria%20de%20automatizar%20processos%20no%20meu%20negócio.%20Pode%20me%20ajudar?"
+                                class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener">
+                                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                                </svg>
                                 Automatizar tarefas
                             </a>
                         </div>
@@ -1105,8 +1152,11 @@
                             </div>
                             <h3>Google Maps</h3>
                             <p>Configuração e otimização para visibilidade local no Google.</p>
-                            <a href="https://wa.me/5589981202147?text=Olá%20Pedro!%20Quero%20melhorar%20a%20presença%20do%20meu%20negócio%20no%20Google%20Maps.%20Pode%20me%20ajudar?" class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener">
-                                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                            <a href="https://wa.me/5589981202147?text=Olá%20João!%20Quero%20melhorar%20a%20presença%20do%20meu%20negócio%20no%20Google%20Maps.%20Pode%20me%20ajudar?"
+                                class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener">
+                                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                                </svg>
                                 Configurar Maps
                             </a>
                         </div>
@@ -1240,7 +1290,19 @@
                         <span class="tag">Progress Tracking</span>
                         <span class="tag">JavaScript</span>
                     </div>
-                    <p style="color: var(--text-secondary); font-size: 0.95rem;">O sistema acompanha o progresso, ajusta desafios automaticamente e mantém a constância com gamificação e feedback contínuo.</p>
+                    <p class="project-info">O sistema acompanha o progresso, ajusta desafios automaticamente e mantém a constância com gamificação e feedback contínuo.</p>
+                </div>
+
+                <div class="featured-project fade-up delay-2">
+                    <div class="project-badge">Concluído</div>
+                    <h3 class="project-title">Patinhas felizes</h3>
+                    <p class="project-desc">Plataforma de adoção de animais no formato de uma rede social.</p>
+                    <div class="project-tags">
+                        <span class="tag">Adoção</span>
+                        <span class="tag">Rede Social</span>
+                        <span class="tag">Pet</span>
+                    </div>
+                    <p class="project-info">É uma rede social pra pets com funcionalidade de adoção</p>
                 </div>
             </div>
         </section>
@@ -1253,8 +1315,11 @@
                     <p>Se você precisa de um site simples, funcional e pensado para o seu negócio, posso ajudar.</p>
                     <div class="cta-buttons">
                         <a href="#services" class="btn btn-secondary">Ver serviços</a>
-                        <a href="https://wa.me/5589981202147?text=Olá%20Pedro!%20Vi%20seu%20portfólio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." class="btn btn-whatsapp" target="_blank" rel="noopener">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                        <a href="https://wa.me/5589981202147?text=Olá%20João!%20Vi%20seu%20portfólio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto."
+                            class="btn btn-whatsapp" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                            </svg>
                             Falar no WhatsApp
                         </a>
                     </div>
@@ -1279,17 +1344,99 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
+            // Matrix Rain Effect
+            const canvas = document.getElementById('matrix-canvas');
+            const ctx = canvas.getContext('2d');
+
+            function resizeCanvas() {
+                const hero = document.querySelector('.hero');
+                canvas.width = hero.offsetWidth;
+                canvas.height = hero.offsetHeight;
+            }
+
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            // Characters for the matrix effect
+            const chars = '01'.repeat(64);
+
+            const charArray = chars.split('');
+
+            const fontSize = 14;
+            let columns = Math.floor(canvas.width / fontSize);
+            let drops = [];
+
+            // Initialize drops
+            function initDrops() {
+                columns = Math.floor(canvas.width / fontSize);
+                drops = [];
+                for (let i = 0; i < columns; i++) {
+                    drops[i] = Math.random() * -100;
+                }
+            }
+
+            initDrops();
+            window.addEventListener('resize', initDrops);
+
+            function drawMatrix() {
+                // Semi-transparent black to create trail effect
+                ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = '#00ff9c';
+                ctx.font = fontSize + 'px JetBrains Mono, monospace';
+
+                for (let i = 0; i < drops.length; i++) {
+                    // Random character
+                    const char = charArray[Math.floor(Math.random() * charArray.length)];
+                    
+                    // Draw character
+                    const x = i * fontSize;
+                    const y = drops[i] * fontSize;
+                    
+                    // Vary opacity for depth effect
+                    const opacity = Math.random() * 0.5 + 0.3;
+                    ctx.fillStyle = `rgba(0, 255, 156, ${opacity})`;
+                    ctx.fillText(char, x, y);
+
+                    // Brighter head of the drop
+                    if (Math.random() > 0.975) {
+                        ctx.fillStyle = '#ffffff';
+                        ctx.fillText(char, x, y);
+                    }
+
+                    // Reset drop when it reaches bottom
+                    if (y > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    
+                    drops[i]++;
+                }
+            }
+
+            // Animation loop
+            let matrixInterval = setInterval(drawMatrix, 50);
+
+            // Pause matrix when tab is not visible
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                    clearInterval(matrixInterval);
+                } else {
+                    matrixInterval = setInterval(drawMatrix, 50);
+                }
+            });
+
             // Hide loading screen after content loads
             const loadingScreen = document.getElementById('loadingScreen');
-            
+
             setTimeout(() => {
                 loadingScreen.classList.add('hidden');
                 document.body.classList.add('content-loaded');
-                
+
                 // Trigger initial animations
                 setTimeout(() => {
-                    document.querySelectorAll('.fade-up').forEach((el, i) => {
+                    document.querySelectorAll('.fade-up').forEach((el) => {
                         const rect = el.getBoundingClientRect();
                         if (rect.top < window.innerHeight) {
                             el.classList.add('visible');
@@ -1314,22 +1461,22 @@
 
             // Smooth scroll for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
+                anchor.addEventListener('click', function (e) {
                     const href = this.getAttribute('href');
                     if (href === '#') return;
-                    
+
                     e.preventDefault();
                     const target = document.querySelector(href);
-                    
+
                     if (target) {
                         const offset = 80;
                         const position = target.getBoundingClientRect().top + window.pageYOffset - offset;
-                        
+
                         window.scrollTo({
                             top: position,
                             behavior: 'smooth'
                         });
-                        
+
                         history.pushState(null, null, href);
                     }
                 });
@@ -1338,31 +1485,32 @@
             // Active link on scroll
             const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('.footer-link');
-            
+
             function updateActiveLink() {
                 let current = '';
                 const scrollPos = window.scrollY + 150;
-                
+
                 sections.forEach(section => {
                     const top = section.offsetTop;
                     const height = section.clientHeight;
-                    
+
                     if (scrollPos >= top && scrollPos < top + height) {
                         current = section.getAttribute('id');
                     }
                 });
-                
+
                 navLinks.forEach(link => {
-                    link.style.color = link.getAttribute('href') === `#${current}` 
-                        ? 'var(--accent)' 
+                    link.style.color = link.getAttribute('href') === `#${current}`
+                        ? 'var(--accent)'
                         : '';
                 });
             }
-            
+
             window.addEventListener('scroll', updateActiveLink);
-            
+
             console.log('✓ Portfólio carregado');
         });
     </script>
 </body>
+
 </html>
