@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desenjao | Dev Full Stack</title>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZCL5R9P8MS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-ZCL5R9P8MS');
+    </script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f5f5;
+            color: #1a1a1a;
+        }
+        
+        /* Hero com imagem de fundo */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=2670&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+        
+        /* Card de conversão */
+        .conversion-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            max-width: 480px;
+            width: 100%;
+        }
+        
+        /* Seções alternadas */
+        .section-light {
+            background: white;
+            padding: 5rem 1rem;
+        }
+        
+        .section-dark {
+            background: #f8fafc;
+            padding: 5rem 1rem;
+        }
+        
+        /* Cards de serviço */
+        .service-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: #2563eb;
+        }
+        
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            background: #eef2ff;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: #2563eb;
+        }
+        
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: #eef2ff;
+            color: #2563eb;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        /* Botões */
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+            padding: 0.875rem 2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.5);
+        }
+        
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            padding: 0.875rem 2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-whatsapp:hover {
+            background: #20bd5a;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(37, 211, 102, 0.5);
+        }
+        
+        /* Input */
+        .input-field {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        
+        /* Tech items */
+        .tech-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-item:hover {
+            border-color: #2563eb;
+            transform: translateY(-2px);
+        }
+        
+        /* Loading screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loader {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #e2e8f0;
+            border-top-color: #2563eb;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .hero {
+                min-height: auto;
+                padding: 4rem 1rem;
+            }
+            
+            .conversion-card {
+                margin-top: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header simples -->
+    <nav class="absolute top-0 left-0 w-full z-50 py-6 px-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="text-white text-2xl font-black tracking-tighter">DESENJAO</div>
+            <a href="#contato" class="text-white/80 hover:text-white transition-colors text-sm">Contato</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section com imagem de fundo -->
+    <section class="hero">
+        <div class="max-w-7xl mx-auto w-full px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Left content -->
+                <div>
+                    <h1 class="text-5xl md:text-6xl font-black tracking-tighter leading-[1.1]">
+                        Dev Full Stack <br>
+                        <span class="text-blue-400">para negócios locais</span>
+                    </h1>
+                    
+                    <p class="text-xl text-gray-300 mt-6 max-w-lg">
+                        Sites simples, rápidos e com resultado real. Sem enrolação, código limpo e foco no que importa: seu negócio.
+                    </p>
+                    
+                    <!-- Benefícios bullet points -->
+                    <div class="mt-8 space-y-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-blue-500/20 flex items-center justify-center">
+                                <div class="w-2 h-2 rounded-full bg-blue-500"></div>
+                            </div>
+                            <span class="text-gray-300">Sites que convertem visitantes em clientes</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-blue-500/20 flex items-center justify-center">
+                                <div class="w-2 h-2 rounded-full bg-blue-500"></div>
+                            </div>
+                            <span class="text-gray-300">Design profissional sem mensalidade</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-blue-500/20 flex items-center justify-center">
+                                <div class="w-2 h-2 rounded-full bg-blue-500"></div>
+                            </div>
+                            <span class="text-gray-300">Atendimento rápido e suporte incluso</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card de conversão (estilo Hotmart) -->
+                <div class="conversion-card">
+                    <h2 class="text-2xl font-black mb-2">Começar agora</h2>
+                    <p class="text-gray-600 text-sm mb-6">Preencha seus dados e ganhe um diagnóstico gratuito do seu projeto.</p>
+                    
+                    <form id="leadForm" onsubmit="event.preventDefault(); window.open('https://wa.me/5589981202147?text=Olá%20João!%20Preenchi%20o%20formulário%20no%20site%20e%20quero%20falar%20sobre%20meu%20projeto', '_blank');">
+                        <div class="space-y-4">
+                            <input type="text" placeholder="Seu nome" class="input-field" required>
+                            <input type="email" placeholder="Seu melhor e-mail" class="input-field" required>
+                            <input type="tel" placeholder="WhatsApp" class="input-field" required>
+                            <button type="submit" class="btn-primary">
+                                <i data-lucide="message-circle" class="w-5 h-5"></i>
+                                Falar no WhatsApp agora
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <p class="text-xs text-gray-400 text-center mt-4">
+                        ✓ Atendimento rápido • ✓ Diagnóstico gratuito
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5 Dores que eliminamos -->
+    <section class="section-light">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="badge">O DIAGNÓSTICO</span>
+                <h2 class="text-4xl md:text-5xl font-black tracking-tighter mt-4">5 dores que <span class="text-blue-600">eliminamos</span></h2>
+                <p class="text-gray-600 max-w-2xl mx-auto mt-4">Identificamos exatamente onde seu negócio está perdendo oportunidades</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="users" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-black mb-2">A Indicação Perdida</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Seu cliente chega pelo WhatsApp, mas foge ao ver um link amador. Recupere vendas que já estavam na mão.</p>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-black mb-2">Escravo do WhatsApp</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Pare de repetir os mesmos roteiros. Seu site deve filtrar e vender sozinho enquanto você foca no negócio.</p>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="trending-down" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-black mb-2">Preço Leiloado</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Design amador atrai cliente que pede desconto. Um site profissional justifica seu preço sem questionamentos.</p>
+                </div>
+                
+                <!-- Card 4 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="eye-off" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-black mb-2">Invisibilidade Digital</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Quem não é visto, não é lembrado. Apareça no Google com autoridade e pare de perder para a concorrência.</p>
+                </div>
+                
+                <!-- Card 5 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="camera-off" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-black mb-2">Vergonha da Vitrine</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Tenha orgulho de enviar seu link. Transforme sua empresa em uma marca que impõe respeito no primeiro clique.</p>
+                </div>
+                
+                <!-- Card 6 - Bônus -->
+                <div class="service-card bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200">
+                    <div class="service-icon bg-blue-600 text-white">
+                        <i data-lucide="zap" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-black mb-2">Solução completa</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Do briefing ao código, entrego um site pronto para converter. Sem template, sem dor de cabeça.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Processo simples -->
+    <section class="section-dark">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="badge">COMO FUNCIONA</span>
+                <h2 class="text-4xl md:text-5xl font-black tracking-tighter mt-4">Processo <span class="text-blue-600">simples</span></h2>
+                <p class="text-gray-600 max-w-2xl mx-auto mt-4">Do briefing ao site no ar em poucos passos</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl font-black mx-auto mb-4">1</div>
+                    <h3 class="text-xl font-black mb-2">Briefing</h3>
+                    <p class="text-gray-600">Entendo seu negócio, suas dores e o que você precisa resolver</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl font-black mx-auto mb-4">2</div>
+                    <h3 class="text-xl font-black mb-2">Desenvolvimento</h3>
+                    <p class="text-gray-600">Código limpo, performance máxima e design pensado para conversão</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl font-black mx-auto mb-4">3</div>
+                    <h3 class="text-xl font-black mb-2">Entrega</h3>
+                    <p class="text-gray-600">Site no ar, você feliz e seus clientes impressionados</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projetos recentes -->
+    <section class="section-light">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="badge">PORTFÓLIO</span>
+                <h2 class="text-4xl md:text-5xl font-black tracking-tighter mt-4">Projetos <span class="text-blue-600">recentes</span></h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Projeto 1 -->
+                <div class="service-card p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i data-lucide="target" class="w-5 h-5 text-blue-600"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-mono text-blue-600">EM ANDAMENTO</span>
+                            <h3 class="font-black">Sisteminha do Prota</h3>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm">Plataforma de objetivos que transforma metas em missões diárias com gamificação.</p>
+                </div>
+                
+                <!-- Projeto 2 -->
+                <div class="service-card p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i data-lucide="heart" class="w-5 h-5 text-blue-600"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-mono text-green-600">CONCLUÍDO</span>
+                            <h3 class="font-black">Patinhas felizes</h3>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm">Rede social para adoção de animais. Conecta pets a novos lares de forma simples.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="section-dark">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="badge">TECNOLOGIAS</span>
+                <h2 class="text-4xl md:text-5xl font-black tracking-tighter mt-4">O que eu <span class="text-blue-600">uso</span></h2>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="tech-item">
+                    <div class="text-3xl mb-2">{ }</div>
+                    <h4 class="font-black text-sm">HTML/CSS/JS</h4>
+                    <p class="text-xs text-gray-500">Código puro</p>
+                </div>
+                <div class="tech-item">
+                    <div class="text-3xl mb-2">WP</div>
+                    <h4 class="font-black text-sm">WordPress</h4>
+                    <p class="text-xs text-gray-500">Quando necessário</p>
+                </div>
+                <div class="tech-item">
+                    <div class="text-3xl mb-2">⚡</div>
+                    <h4 class="font-black text-sm">Performance</h4>
+                    <p class="text-xs text-gray-500">Sites rápidos</p>
+                </div>
+                <div class="tech-item">
+                    <div class="text-3xl mb-2">🤖</div>
+                    <h4 class="font-black text-sm">Automações</h4>
+                    <p class="text-xs text-gray-500">Google Apps Script</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="section-light" id="contato">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[40px] p-12 md:p-16 text-center text-white">
+                <h2 class="text-4xl md:text-5xl font-black tracking-tighter mb-4">Pronto para começar?</h2>
+                <p class="text-blue-100 max-w-2xl mx-auto mb-8">Se você precisa de um site simples, funcional e que realmente entregue resultado, vamos conversar.</p>
+                
+                <a href="https://wa.me/5589981202147" class="inline-flex items-center gap-3 bg-white text-blue-600 px-8 py-4 rounded-full font-black hover:shadow-xl transition-all" target="_blank">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    Falar no WhatsApp agora
+                </a>
+                
+                <div class="flex justify-center gap-8 mt-12 text-sm text-blue-100">
+                    <span>✓ Atendimento rápido</span>
+                    <span>✓ Código limpo</span>
+                    <span>✓ Sem mensalidade</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-8">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="text-xl font-black tracking-tighter">DESENJAO</div>
+                <div class="flex gap-6 text-sm text-gray-600">
+                    <a href="#" class="hover:text-blue-600">Início</a>
+                    <a href="#" class="hover:text-blue-600">Serviços</a>
+                    <a href="#" class="hover:text-blue-600">Projetos</a>
+                    <a href="#" class="hover:text-blue-600">Contato</a>
+                </div>
+                <p class="text-xs text-gray-500">© 2026 Desenjão – Dev Full Stack</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Lucide icons
+        lucide.createIcons();
+        
+        // Loading screen
+        const loadingScreen = document.getElementById('loadingScreen');
+        setTimeout(() => {
+            loadingScreen.classList.add('hidden');
+        }, 800);
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+    
+    <script src="metricas.js"></script>
+</body>
+</html>

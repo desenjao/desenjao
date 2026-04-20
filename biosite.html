@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    
+    <title>João Pereira | Dev & Design</title>
+    <meta name="description" content="João Pereira (Desenjao) - Desenvolvedor e Designer especializado em infraestrutura digital, UI/UX e automações.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0A0A0A;
+            --bg-secondary: #111111;
+            --text-primary: #FFFFFF;
+            --text-secondary: #CCCCCC;
+            --accent: #00FF88;
+            --accent-gradient: linear-gradient(135deg, #00CC66, #00FF88);
+            --card-bg: rgba(255, 255, 255, 0.08);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #F5F5F7;
+            --bg-secondary: #FFFFFF;
+            --text-primary: #1D1D1F;
+            --text-secondary: #424245;
+            --accent: #00CC66;
+            --accent-gradient: linear-gradient(135deg, #00FF88, #00CC66);
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --border-color: rgba(0, 0, 0, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        html, body {
+            background-color: var(--bg-primary);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            transition: background-color 0.3s ease;
+        }
+
+        .hero, .hero-bottom, .btn-card {
+            transform: translateZ(0);
+            will-change: transform;
+        }
+
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(15px);
+            background-color: rgba(0, 0, 0, 0.3);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .welcome-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 32px;
+            padding: 48px 32px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: glassAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #00FF88, #00CC66);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-card .subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+        }
+
+        .glass-card .explore-btn {
+            background: var(--accent-gradient);
+            border: none;
+            color: #1a1a1a;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 16px 32px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card .explore-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 28px rgba(0, 255, 136, 0.5);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10001;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 40px;
+            padding: 8px;
+            display: flex;
+            gap: 4px;
+        }
+
+        .theme-toggle button {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            width: 40px;
+            height: 40px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .theme-toggle button.active {
+            background: var(--accent-gradient);
+            color: #1a1a1a;
+        }
+
+        .particles-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background: radial-gradient(circle at 50% 50%, rgba(0,255,136,0.05), transparent 70%);
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+            animation: floatParticle 20s infinite ease-in-out;
+        }
+
+        @keyframes floatParticle {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            25% { transform: translateY(-20px) translateX(10px); }
+            75% { transform: translateY(20px) translateX(-10px); }
+        }
+
+        @media (max-width: 768px) {
+            .particle {
+                display: none;
+            }
+            .theme-toggle, .social-links a {
+                backdrop-filter: none !important;
+                background: var(--bg-secondary) !important;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .hero {
+            width: 100%;
+            height: 65vh;
+            max-height: 650px;
+            min-height: 450px;
+            position: relative;
+            clip-path: ellipse(150% 100% at 50% 0%);
+            overflow: hidden;
+            border-radius: 0 0 30px 30px;
+        }
+
+        .hero img, .hero-bottom img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .intro {
+            width: 100%;
+            text-align: center;
+            padding: var(--spacing-md) var(--spacing-sm);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            background: linear-gradient(135deg, #00FF88, #00CC66);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .description {
+            font-size: 1rem;
+            line-height: 1.5;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .scroll-indicator {
+            margin-top: 25px;
+            color: var(--accent);
+            animation: bounce 2s infinite;
+            width: 40px;
+            height: 40px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .buttons-grid {
+            width: 95%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: var(--spacing-md) 0;
+        }
+
+        .btn-card {
+            width: 100%;
+            text-decoration: none;
+            display: block;
+            transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .btn-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .btn-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .btn-card:hover img {
+            box-shadow: 0 12px 24px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-card.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cta-section {
+            width: 100%;
+            text-align: center;
+            padding: var(--spacing-xl) var(--spacing-md);
+            background: linear-gradient(to bottom, transparent, rgba(0, 255, 136, 0.05));
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .cta-section.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cta-section p {
+            font-size: 1rem;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+
+        .social-links a {
+            color: var(--text-primary);
+            width: 50px;
+            height: 50px;
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            background: var(--card-bg);
+        }
+
+        .social-links a:hover {
+            background: var(--accent-gradient);
+            color: #1a1a1a;
+            transform: translateY(-3px);
+        }
+
+        .hero-bottom {
+            width: 100%;
+            height: 45vh;
+            margin-top: -10px;
+            border-radius: 30px 30px 0 0;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .hero-bottom.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 25px;
+            right: 25px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.05);
+        }
+
+        .whatsapp-icon { 
+            width: 32px; 
+            height: 32px; 
+            fill: #1a1a1a; 
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 255, 136, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
+        }
+
+        .wpp-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wpp-modal-content {
+            background: linear-gradient(135deg, #111, #000);
+            width: 90%;
+            max-width: 380px;
+            border-radius: 24px;
+            padding: var(--spacing-lg);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        [data-theme="light"] .wpp-modal-content {
+            background: linear-gradient(135deg, #fff, #f5f5f7);
+        }
+
+        .wpp-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .close-modal {
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .wpp-modal-body button {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+
+        .wpp-modal-body button:hover {
+            background: var(--accent-gradient);
+            color: #1a1a1a;
+            transform: translateX(5px);
+        }
+
+        @keyframes glassAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media screen and (min-width: 768px) {
+            .container { max-width: 700px; }
+            .buttons-grid { max-width: 500px; }
+            h1 { font-size: 3rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, .particle, .glass-card, .btn-card, .whatsapp-float {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <div class="theme-toggle">
+        <button class="theme-btn active" data-theme="dark" onclick="setTheme('dark')">
+            <i class="fas fa-moon"></i>
+        </button>
+        <button class="theme-btn" data-theme="light" onclick="setTheme('light')">
+            <i class="fas fa-sun"></i>
+        </button>
+    </div>
+
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="glass-card">
+            <h1>JOÃO PEREIRA</h1>
+            <div class="subtitle">dev & design • desenjao</div>
+            <button class="explore-btn" id="exploreBtn">
+                Explorar Portfólio
+            </button>
+        </div>
+    </div>
+
+    <div class="particles-background" id="particles"></div>
+
+    <main class="container">
+        <section class="hero">
+            <img src="img/ttle.png" alt="João Pereira - Dev & Design" loading="lazy" onerror="this.src='https://placehold.co/600x400/1a1a1a/00FF88?text=Desenjao'">
+        </section>
+
+        <section class="intro">
+            <h1>JOÃO PEREIRA</h1>
+            <p class="description">
+                 Especialista em infraestrutura digital. Cuido dos seus sites, funis e automações para você focar apenas na criação e nas vendas.   </p>
+            <div class="scroll-indicator">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <section class="buttons-grid">
+            <a href="servicos.html" class="btn-card">
+                <img src="img/1.png" alt="Serviços - Desenvolvimento e Design" loading="lazy" onerror="this.src='https://placehold.co/600x200/1a1a1a/00FF88?text=Servi%C3%A7os'">
+            </a>
+            <a href="" onclick="toggleWppModal(); return false;" class="btn-card">
+                <img src="img/2.png" alt="Perfil - João Pereira" loading="lazy" onerror="this.src='https://placehold.co/600x200/1a1a1a/00FF88?text=Perfil'">
+            </a>
+            <a href="profile.html"  class="btn-card">
+                <img src="img/3.png" alt="Contato - Vamos conversar" loading="lazy" onerror="this.src='https://placehold.co/600x200/1a1a1a/00FF88?text=Contato'">
+            </a>
+            <a href="mentorias.html" class="btn-card" target="_blank">
+                <img src="img/4.png" alt="Instagram - @desenjao_editor" loading="lazy" onerror="this.src='https://placehold.co/600x200/1a1a1a/00FF88?text=Instagram'">
+            </a>
+        </section>
+
+        <section class="cta-section">
+            <p>Precisa de código bem escrito, design intuitivo e performance de verdade? Bora construir algo sólido.</p>
+            <div class="social-links">
+                <a href="#" onclick="toggleWppModal(); return false;">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+                <a href="https://instagram.com/desenjao_editor" target="_blank">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+            </div>
+        </section>
+
+        <section class="hero-bottom">
+            <img src="img/header.png" alt="Background - Dev & Design" loading="lazy"
+                 onerror="this.src='https://placehold.co/600x400/1a1a1a/00FF88?text=Desenjao'">
+        </section>
+    </main>
+
+    <div class="whatsapp-float" onclick="toggleWppModal()">
+        <svg viewBox="0 0 32 32" class="whatsapp-icon">
+            <path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.733 5.476 2.014 7.787l-2.014 7.353 7.525-1.972c2.31 1.274 4.975 2.002 7.81 2.002 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.333c-2.608 0-5.051-0.704-7.155-1.925l-0.513-0.3-4.469 1.17 1.192-4.353-0.33-0.525c-1.332-2.121-2.099-4.632-2.099-7.327 0-7.359 5.975-13.333 13.333-13.333s13.333 5.975 13.333 13.333-5.975 13.333-13.333 13.333zM22.507 19.34c-0.356-0.178-2.107-1.039-2.441-1.156-0.333-0.117-0.577-0.178-0.819 0.178s-0.939 1.156-1.152 1.391c-0.213 0.235-0.427 0.267-0.783 0.089-0.356-0.178-1.504-0.554-2.864-1.769-1.059-0.945-1.774-2.112-1.981-2.469-0.213-0.356-0.023-0.548 0.155-0.725 0.161-0.158 0.356-0.415 0.534-0.622s0.237-0.356 0.356-0.593c0.118-0.237 0.059-0.445-0.030-0.622-0.089-0.178-0.819-1.975-1.123-2.706-0.296-0.713-0.598-0.617-0.822-0.628-0.213-0.011-0.457-0.013-0.701-0.013s-0.641 0.091-0.976 0.46c-0.334 0.368-1.275 1.246-1.275 3.039s1.309 3.522 1.488 3.759c0.178 0.237 2.575 3.931 6.237 5.513 0.871 0.377 1.551 0.602 2.081 0.771 0.875 0.278 1.672 0.239 2.301 0.145 0.702-0.105 2.107-0.86 2.404-1.691 0.297-0.832 0.297-1.545 0.208-1.693-0.089-0.148-0.326-0.237-0.682-0.415z"></path>
+        </svg>
+    </div>
+
+    <div id="wppModal" class="wpp-modal">
+        <div class="wpp-modal-content">
+            <div class="wpp-modal-header">
+                <h3>Vamos conversar sobre código?</h3>
+                <span class="close-modal" onclick="toggleWppModal()">&times;</span>
+            </div>
+            <div class="wpp-modal-body">
+                <button onclick="sendWppMsg('Olá! Gostaria de saber mais sobre desenvolvimento de sites e interfaces.')">
+                    💻 Desenvolvimento Web
+                </button>
+                <button onclick="sendWppMsg('Oi! Tenho interesse em UI/UX Design para meu projeto.')">
+                    🎨 UI/UX Design
+                </button>
+                <button onclick="sendWppMsg('Olá! Preciso de um orçamento para landing page / site profissional.')">
+                    📱 Landing Pages & Sites
+                </button>
+                <button onclick="sendWppMsg('Quero saber sobre automações e integrações para meu negócio.')">
+                    ⚙️ Automações & Integrações
+                </button>
+                <button onclick="sendWppMsg('Gostaria de um projeto personalizado de dev + design!')">
+                    💎 Projeto Completo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const phoneNumber = "5589981202147";
+
+        function setTheme(theme) {
+            document.body.setAttribute('data-theme', theme);
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-theme') === theme);
+            });
+            localStorage.setItem('theme', theme);
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        setTheme(savedTheme);
+
+        function hideWelcomeScreen() {
+            const welcomeScreen = document.getElementById('welcomeScreen');
+            welcomeScreen.classList.add('hidden');
+        }
+
+        setTimeout(hideWelcomeScreen, 2500);
+        document.getElementById('exploreBtn').addEventListener('click', hideWelcomeScreen);
+
+        const revealElements = document.querySelectorAll('.btn-card, .cta-section, .hero-bottom');
+        
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { 
+            threshold: 0.1,
+            rootMargin: '50px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const isMobile = window.innerWidth < 768;
+            const motionMediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+            
+            if (isMobile || motionMediaQuery.matches) {
+                container.innerHTML = '';
+                return;
+            }
+            
+            const numberOfParticles = 20;
+            container.innerHTML = '';
+            
+            for (let i = 0; i < numberOfParticles; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 40 + 10;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                const duration = 15 + Math.random() * 20;
+                const delay = Math.random() * 10;
+                particle.style.animation = `floatParticle ${duration}s infinite ease-in-out`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                container.appendChild(particle);
+            }
+        }
+
+        function toggleWppModal() {
+            const modal = document.getElementById("wppModal");
+            modal.style.display = modal.style.display === "flex" ? "none" : "flex";
+        }
+
+        function sendWppMsg(message) {
+            window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
+            toggleWppModal();
+        }
+
+        window.onclick = (event) => {
+            const modal = document.getElementById("wppModal");
+            if (event.target === modal) toggleWppModal();
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                const modal = document.getElementById("wppModal");
+                if (modal.style.display === "flex") toggleWppModal();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+        });
+    </script>
+</body>
+</html>

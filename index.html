@@ -1,1562 +1,548 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-
+<html lang="pt-br">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZCL5R9P8MS"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-ZCL5R9P8MS');
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desenjao | Dev Full Stack</title>
+    <title>Yuri Santos | Experiência Cinematográfica</title>
+    <link rel="icon" href="img/IMG-20260215-WA0102.jpg" type="image/png">    
+    
+    <!-- FONTES -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
-        rel="stylesheet">
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #111111;
-            --bg-tertiary: #1a1a1a;
-            --bg-card: #161616;
-            --text-primary: #f5f5f5;
-            --text-secondary: #9ca3af;
-            --accent: #00ff9c;
-            --accent-dark: #00cc7d;
-            --accent-glow: rgba(0, 255, 156, 0.15);
-            --accent-subtle: rgba(0, 255, 156, 0.08);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --border-radius: 20px;
-            --border-radius-sm: 12px;
-            --border-radius-xs: 8px;
-            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-            --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
-            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            --shadow-glow: 0 0 40px rgba(0, 255, 156, 0.15);
-        }
-
-        * {
+               * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
-        }
-
         body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            font-family: var(--font-sans);
-            line-height: 1.6;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            min-height: 100vh;
-        }
-
-        /* Loading Screen */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-primary);
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-
-        .loading-screen.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .loader {
-            display: flex;
-            gap: 8px;
-        }
-
-        .loader-dot {
-            width: 12px;
-            height: 12px;
-            background: var(--accent);
-            border-radius: 50%;
-            animation: loaderBounce 1.4s ease-in-out infinite both;
-        }
-
-        .loader-dot:nth-child(1) { animation-delay: -0.32s; }
-        .loader-dot:nth-child(2) { animation-delay: -0.16s; }
-        .loader-dot:nth-child(3) { animation-delay: 0s; }
-
-        @keyframes loaderBounce {
-            0%, 80%, 100% {
-                transform: scale(0);
-                opacity: 0.5;
-            }
-            40% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        /* Skeleton Loading */
-        .skeleton {
-            position: relative;
             overflow: hidden;
-            background: var(--bg-tertiary);
-            border-radius: var(--border-radius-xs);
+            position: relative;
+            background: #0A0A0A;
         }
 
-        .skeleton::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-            animation: shimmer 1.5s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        .skeleton-card {
-            height: 280px;
-            border-radius: var(--border-radius);
-        }
-
-        .content-loaded .skeleton { display: none; }
-        .content-loaded .real-content { display: block; }
-        .real-content { display: none; }
-
-        /* Container */
-        .container {
-            width: 100%;
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        @media (min-width: 640px) {
-            .container { padding: 0 1.5rem; }
-        }
-
-        @media (min-width: 1024px) {
-            .container { padding: 0 2rem; }
-        }
-
-        /* Grid Background */
-        .grid-bg {
+        /* ===== FUNDO CINEMATOGRÁFICO ===== */
+        .cinematic-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image:
-                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 60px 60px;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .glow-orb {
-            position: fixed;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            background: radial-gradient(circle, var(--accent-glow), transparent 70%);
-            pointer-events: none;
-            z-index: -1;
-            opacity: 0.5;
-        }
-
-        .glow-orb-1 { top: -200px; right: -200px; }
-        .glow-orb-2 { bottom: -200px; left: -200px; }
-
-        /* Matrix Rain Canvas */
-        #matrix-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
             z-index: 0;
-            opacity: 0.4;
         }
 
-        /* Typography */
-        h1, h2, h3, h4 {
-            font-weight: 700;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-        }
-
-        h1 { font-size: clamp(2rem, 6vw, 3.5rem); }
-        h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
-        h3 { font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
-
-        .text-accent { color: var(--accent); }
-        .text-secondary { color: var(--text-secondary); }
-        .font-mono { font-family: var(--font-mono); }
-
-        /* Section */
-        section {
-            padding: clamp(3rem, 8vw, 6rem) 0;
-        }
-
-        .section-header {
-            margin-bottom: 3rem;
-        }
-
-        .section-header h2 {
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-header h2::after {
-            content: '';
+        /* Camada de partículas */
+        .particles-loading {
             position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), transparent);
-            border-radius: 2px;
-        }
-
-        .section-header p {
-            color: var(--text-secondary);
-            font-size: clamp(1rem, 2vw, 1.25rem);
-            max-width: 600px;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100dvh;
-            display: flex;
-            align-items: center;
-            padding: 2rem 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero .container {
-            position: relative;
+            width: 100%;
+            height: 100%;
             z-index: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
         }
 
-        .hero-content {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            text-align: center;
-        }
-
-        .hero-text h1 {
-            margin-bottom: 0.5rem;
-        }
-
-        .hero-text h2 {
-            font-size: clamp(1.25rem, 3vw, 1.75rem);
-            font-weight: 500;
-            color: var(--accent);
-            margin-bottom: 0.75rem;
-        }
-
-        .hero-subtitle {
-            color: var(--text-secondary);
-            font-size: clamp(0.95rem, 2vw, 1.1rem);
-            max-width: 32ch;
-            margin: 0 auto;
-        }
-
-        /* Profile Card */
-        .profile-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            text-align: center;
-            transition: var(--transition);
-            width: 100%;
-            max-width: 300px;
-            margin: 0 auto;
-        }
-
-        .profile-card:hover {
-            border-color: var(--accent);
-            box-shadow: var(--shadow-glow);
-            transform: translateY(-4px);
-        }
-
-        .profile-photo {
-            width: 100px;
-            height: 100px;
+        .particle-load {
+            position: absolute;
+            background: rgba(76, 175, 80, 0.15);
             border-radius: 50%;
-            margin: 0 auto 1rem;
-            overflow: hidden;
-            border: 3px solid var(--accent-subtle);
-            background: var(--bg-tertiary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            filter: blur(2px);
+            animation: floatLiquid 12s infinite ease-in-out;
         }
 
-        .profile-photo img {
+        /* Efeito de gradiente líquido */
+        .liquid-overlay {
+            position: absolute;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-        }
-
-        .profile-photo .initials {
-            font-family: var(--font-mono);
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--accent);
-        }
-
-        .profile-name {
-            font-family: var(--font-mono);
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--accent);
-            margin-bottom: 0.25rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .profile-name::before {
-            content: '>';
-            opacity: 0.7;
-        }
-
-        .profile-tagline {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
-
-        .profile-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(0, 255, 156, 0.1);
-            padding: 0.4rem 0.8rem;
-            border-radius: 20px;
-            margin-top: 0.75rem;
-            font-size: 0.8rem;
-            color: var(--accent);
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--accent);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.5;
-                transform: scale(0.8);
-            }
-        }
-
-        /* Hero CTA */
-        .hero-cta {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            width: 100%;
-            max-width: 300px;
-            margin: 0 auto;
-        }
-
-        /* Desktop Layout */
-        @media (min-width: 768px) {
-            .hero .container {
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-                gap: 3rem;
-            }
-
-            .hero-content {
-                text-align: left;
-                flex: 1;
-                max-width: 520px;
-            }
-
-            .hero-subtitle {
-                margin: 0;
-            }
-
-            .hero-cta {
-                flex-direction: row;
-                max-width: none;
-                margin: 0;
-            }
-
-            .profile-card {
-                margin: 0;
-                flex-shrink: 0;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .profile-card {
-                padding: 2rem;
-                max-width: 320px;
-            }
-
-            .profile-photo {
-                width: 120px;
-                height: 120px;
-            }
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            padding: 0.875rem 1.5rem;
-            font-family: var(--font-mono);
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-decoration: none;
-            border-radius: var(--border-radius-sm);
-            transition: var(--transition);
-            cursor: pointer;
-            border: none;
-            white-space: nowrap;
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            color: var(--bg-primary);
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-dark);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-glow);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-primary);
-            border: 2px solid var(--border-color);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--accent);
-            background: var(--accent-subtle);
-        }
-
-        .btn-whatsapp {
-            background: #25D366;
-            color: white;
-        }
-
-        .btn-whatsapp:hover {
-            background: #20bd5a;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
-        }
-
-        .btn-whatsapp svg {
-            width: 18px;
-            height: 18px;
-            flex-shrink: 0;
-        }
-
-        .btn-sm {
-            padding: 0.625rem 1rem;
-            font-size: 0.875rem;
-        }
-
-        /* Services Grid */
-        .services-grid {
-            display: grid;
-            gap: 1.25rem;
-            grid-template-columns: 1fr;
-        }
-
-        @media (min-width: 640px) {
-            .services-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .services-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        .service-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        .service-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .service-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--accent-subtle);
-            border-radius: var(--border-radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-            color: var(--accent);
-            transition: var(--transition);
-        }
-
-        .service-card:hover .service-icon {
-            background: var(--accent);
-            color: var(--bg-primary);
-            transform: rotate(5deg) scale(1.05);
-        }
-
-        .service-icon svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        .service-card h3 {
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        .service-card p {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            margin-bottom: 1rem;
-            flex-grow: 1;
-        }
-
-        /* Process Section */
-        .process-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        @media (min-width: 768px) {
-            .process-card {
-                padding: 2rem;
-            }
-        }
-
-        .process-card p {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-        }
-
-        .process-card .highlight-text {
-            font-family: var(--font-mono);
-            color: var(--accent);
-            font-size: 0.95rem;
-        }
-
-        .process-steps {
-            display: grid;
-            gap: 1.5rem;
-            grid-template-columns: 1fr;
-        }
-
-        @media (min-width: 768px) {
-            .process-steps {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        .step {
-            display: flex;
-            gap: 1rem;
-            align-items: flex-start;
-        }
-
-        .step-number {
-            width: 40px;
-            height: 40px;
-            background: var(--accent);
-            color: var(--bg-primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-mono);
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-
-        .step-content h4 {
-            margin-bottom: 0.25rem;
-        }
-
-        .step-content p {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-        }
-
-        /* Tech Grid */
-        .tech-grid {
-            display: grid;
-            gap: 1rem;
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        @media (min-width: 640px) {
-            .tech-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        .tech-item {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius-sm);
-            padding: 1.25rem;
-            text-align: center;
-            transition: var(--transition);
-        }
-
-        .tech-item:hover {
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .tech-icon {
-            font-family: var(--font-mono);
-            font-size: 1.5rem;
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-        }
-
-        .tech-item h4 {
-            font-size: 0.95rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .tech-item p {
-            color: var(--text-secondary);
-            font-size: 0.75rem;
-        }
-
-        /* Focus Box */
-        .focus-box {
-            background: linear-gradient(135deg, var(--bg-card), var(--bg-tertiary));
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            text-align: center;
-            margin-top: 2rem;
-        }
-
-        @media (min-width: 768px) {
-            .focus-box {
-                padding: 2rem;
-            }
-        }
-
-        .focus-badge {
-            display: inline-block;
-            background: var(--accent-subtle);
-            color: var(--accent);
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            margin-bottom: 1rem;
-            border: 1px solid rgba(0, 255, 156, 0.2);
-        }
-
-        .focus-box h3 {
-            margin-bottom: 0.75rem;
-        }
-
-        .focus-box p {
-            color: var(--text-secondary);
-            max-width: 500px;
-            margin: 0 auto;
-            font-size: 0.9rem;
-        }
-
-        /* Clientele Grid */
-        .clientele-grid {
-            display: grid;
-            gap: 1rem;
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        @media (min-width: 768px) {
-            .clientele-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        .clientele-item {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius-sm);
-            padding: 1.25rem;
-            text-align: center;
-            transition: var(--transition);
-        }
-
-        .clientele-item:hover {
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .clientele-item h3 {
-            color: var(--accent);
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .clientele-item p {
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-        }
-
-        /* Featured Project */
-        .featured-project {
-            background: linear-gradient(135deg, var(--bg-card), var(--bg-tertiary));
-            border: 2px solid rgba(0, 255, 156, 0.2);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 1.5rem;
-        }
-
-        @media (min-width: 768px) {
-            .featured-project {
-                padding: 2rem;
-            }
-        }
-
-        .project-badge {
-            display: inline-block;
-            background: var(--accent);
-            color: var(--bg-primary);
-            padding: 0.4rem 0.8rem;
-            border-radius: 20px;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .project-title {
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .project-desc {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-        }
-
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .tag {
-            background: var(--accent-subtle);
-            color: var(--accent);
-            padding: 0.3rem 0.7rem;
-            border-radius: 4px;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            border: 1px solid rgba(0, 255, 156, 0.2);
-        }
-
-        .project-info {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            text-align: center;
-            background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
-            border-radius: var(--border-radius);
-            padding: 2rem 1.5rem;
-            margin: 2rem 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        @media (min-width: 768px) {
-            .cta-section {
-                padding: 3rem 2rem;
-            }
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 0%, var(--accent-glow), transparent 70%);
-            pointer-events: none;
-        }
-
-        .cta-section h2 {
-            margin-bottom: 1rem;
-        }
-
-        .cta-section p {
-            color: var(--text-secondary);
-            max-width: 500px;
-            margin: 0 auto 1.5rem;
-            font-size: 0.95rem;
-        }
-
-        .cta-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            align-items: center;
-            justify-content: center;
-        }
-
-        @media (min-width: 480px) {
-            .cta-buttons {
-                flex-direction: row;
-            }
-        }
-
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--border-color);
-            padding: 2.5rem 0;
-            text-align: center;
-        }
-
-        .footer-logo {
-            font-family: var(--font-mono);
-            font-size: 1.5rem;
-            color: var(--accent);
-            margin-bottom: 0.75rem;
-        }
-
-        .footer-tagline {
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            font-size: 0.9rem;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            transition: var(--transition);
-        }
-
-        .footer-link:hover {
-            color: var(--accent);
-        }
-
-        .copyright {
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-        }
-
-        /* Animations */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .delay-1 { transition-delay: 0.1s; }
-        .delay-2 { transition-delay: 0.2s; }
-        .delay-3 { transition-delay: 0.3s; }
-        .delay-4 { transition-delay: 0.4s; }
-
-        /* Utilities */
-        .section-alt {
-            background: var(--bg-secondary);
-        }
-
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            border: 0;
-        }
-
-        /* Scroll indicator */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 1.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-secondary);
-            font-size: 0.75rem;
-            animation: bounce 2s infinite;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(76, 175, 80, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(56, 142, 60, 0.15) 0%, transparent 35%),
+                radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 20%, rgba(76, 175, 80, 0.1) 0%, transparent 30%);
+            filter: blur(20px);
+            animation: liquidMove 20s infinite alternate;
             z-index: 2;
         }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
+        /* Efeito de vinheta */
+        .vignette {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.4) 100%);
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        @keyframes floatLiquid {
+            0%, 100% { 
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
             }
-            40% {
-                transform: translateX(-50%) translateY(-10px);
+            33% { 
+                transform: translate(2%, -2%) scale(1.1);
+                opacity: 0.5;
             }
-            60% {
-                transform: translateX(-50%) translateY(-5px);
+            66% { 
+                transform: translate(-1%, 3%) scale(0.9);
+                opacity: 0.2;
             }
         }
 
-        .scroll-indicator svg {
-            width: 20px;
-            height: 20px;
+        @keyframes liquidMove {
+            0% { transform: scale(1) rotate(0deg); opacity: 0.5; }
+            50% { transform: scale(1.2) rotate(2deg); opacity: 0.8; }
+            100% { transform: scale(1) rotate(-2deg); opacity: 0.5; }
         }
 
-        @media (max-height: 600px) {
-            .scroll-indicator {
-                display: none;
+        /* ===== CARD LIQUID GLASS ===== */
+        .loading-container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 480px;
+            width: 90%;
+            padding: 50px 40px;
+            background: rgba(20, 20, 30, 0.3);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 48px;
+            box-shadow: 
+                0 30px 60px -20px rgba(0, 0, 0, 0.8),
+                0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+                0 0 40px rgba(76, 175, 80, 0.3);
+            animation: cardAppear 1s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+        }
+
+        /* Reflexo líquido no card */
+        .loading-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3) 0%, transparent 60%);
+            opacity: 0.4;
+            animation: rotate 20s linear infinite;
+            pointer-events: none;
+        }
+
+        /* Brilho líquido nas bordas */
+        .loading-container::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                rgba(76, 175, 80, 0.5), 
+                rgba(255, 255, 255, 0.3), 
+                rgba(56, 142, 60, 0.5), 
+                rgba(76, 175, 80, 0.5));
+            border-radius: 50px;
+            z-index: -1;
+            animation: borderGlow 4s linear infinite;
+            filter: blur(5px);
+            opacity: 0.5;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { opacity: 0.3; filter: blur(5px); }
+            50% { opacity: 0.7; filter: blur(8px); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(30px);
+                filter: blur(10px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                filter: blur(0);
             }
         }
 
-        /* Reduced motion */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-            #matrix-canvas {
-                display: none;
-            }
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FFFFFF, #E0E0E0, #4CAF50);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+            position: relative;
+            z-index: 5;
+            text-shadow: 0 0 30px rgba(76, 175, 80, 0.5);
+        }
+
+        .subtitle-load {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 5;
+            text-transform: uppercase;
+        }
+
+        /* Barra de progresso líquida */
+        .liquid-progress {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            margin: 30px 0 20px;
+            overflow: hidden;
+            position: relative;
+            z-index: 5;
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.2);
+        }
+
+        .liquid-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, 
+                #4CAF50, 
+                #2E7D32, 
+                #4CAF50,
+                #2E7D32,
+                #4CAF50
+            );
+            background-size: 300% 100%;
+            border-radius: 4px;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: liquidShimmer 3s infinite linear;
+            position: relative;
+            box-shadow: 0 0 15px #4CAF50;
+        }
+
+        .liquid-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.4), 
+                transparent
+            );
+            animation: liquidReflection 1.5s infinite;
+        }
+
+        @keyframes liquidShimmer {
+            0% { background-position: 0% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        @keyframes liquidReflection {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+            100% { transform: translateX(200%); }
+        }
+
+        /* Status líquido */
+        .loading-status {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            font-weight: 300;
+            margin: 15px 0;
+            position: relative;
+            z-index: 5;
+            letter-spacing: 0.5px;
+        }
+
+        .loading-status span {
+            color: #4CAF50;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+
+        /* Bolhas líquidas para contador */
+        .bubble-counter {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 25px 0 15px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .bubble {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            box-shadow: 0 0 10px transparent;
+        }
+
+        .bubble::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .bubble.loaded {
+            background: #4CAF50;
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: scale(1.3);
+            box-shadow: 0 0 20px #4CAF50;
+        }
+
+        .bubble.loaded::before {
+            opacity: 1;
+        }
+
+        /* Mensagem final líquida */
+        .ready-message {
+            color: #FFFFFF;
+            margin-top: 25px;
+            font-size: 1rem;
+            opacity: 0;
+            transition: opacity 0.5s;
+            font-weight: 400;
+            position: relative;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: rgba(76, 175, 80, 0.15);
+            backdrop-filter: blur(5px);
+            padding: 10px 20px;
+            border-radius: 40px;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .ready-message.show {
+            opacity: 1;
+        }
+
+        .ready-message i {
+            color: #4CAF50;
+            animation: checkPulse 1s infinite;
+        }
+
+        @keyframes checkPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .redirect-info {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem;
+            margin-top: 30px;
+            position: relative;
+            z-index: 5;
+            letter-spacing: 1px;
+        }
+
+        /* Porcentagem líquida */
+        .percentage-liquid {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #4CAF50;
+            text-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.8rem; }
+            .loading-container { padding: 40px 25px; }
+            .bubble { width: 10px; height: 10px; }
         }
     </style>
 </head>
-
 <body>
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loader">
-            <div class="loader-dot"></div>
-            <div class="loader-dot"></div>
-            <div class="loader-dot"></div>
+    <!-- Fundo Cinematográfico -->
+    <div class="cinematic-bg">
+        <div class="particles-loading" id="particles-loading"></div>
+        <div class="liquid-overlay"></div>
+        <div class="vignette"></div>
+    </div>
+
+    <!-- Card Liquid Glass -->
+    <div class="loading-container">
+        <h1>Desenjão</h1>
+        <div class="subtitle-load">Programador</div>
+        
+        <!-- Barra de progresso líquida -->
+        <div class="liquid-progress">
+            <div class="liquid-fill" id="progressBar"></div>
+        </div>
+
+        <!-- Porcentagem líquida -->
+        <div class="percentage-liquid" id="percentageDisplay">0%</div>
+
+        <!-- Status -->
+        <div class="loading-status" id="loadingStatus">
+            <span id="loadedCount">0</span>/<span id="totalCount">6</span> frames carregados
+        </div>
+
+        <!-- Bolhas líquidas (indicadores) -->
+        <div class="bubble-counter" id="bubbleCounter"></div>
+
+        <!-- Mensagem final -->
+        <div class="ready-message" id="readyMessage">
+            <i class="fas fa-check-circle"></i>
+            Experiência pronta
+        </div>
+
+        <!-- Info adicional -->
+        <div class="redirect-info" id="redirectInfo">
+            preparando sua experiência cinematográfica
         </div>
     </div>
 
-    <!-- Background -->
-    <div class="grid-bg"></div>
-    <div class="glow-orb glow-orb-1"></div>
-    <div class="glow-orb glow-orb-2"></div>
-
-    <main>
-        <section class="hero" id="home">
-            <!-- Matrix Rain Canvas -->
-            <canvas id="matrix-canvas"></canvas>
-            
-            <div class="container">
-                <div class="hero-content">
-                    <div class="hero-text">
-                        <h1>Dev Full Stack</h1>
-                        <h2>para negócios locais</h2>
-                        <p class="hero-subtitle">Sites simples, rápidos e com resultado real.</p>
-                    </div>
-
-                    <div class="profile-card">
-                        <div class="profile-photo">
-                            <img src="img/profile.jpg" alt="">
-                        </div>
-                        <div class="profile-name">João Pereira</div>
-                        <div class="profile-tagline">Dev Full Stack • Foco em soluções práticas</div>
-                        <div class="profile-status">
-                            <span class="status-dot"></span>
-                            Disponível para projetos
-                        </div>
-                    </div>
-
-                    <div class="hero-cta">
-                        <a href="#services" class="btn btn-primary">Ver serviços</a>
-                        <a href="https://wa.me/5589981202147" class="btn btn-whatsapp js-whatsapp" target="_blank" rel="noopener">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-                            </svg>
-                            Falar no WhatsApp
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="scroll-indicator">
-                <span>Scroll</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 5v14M19 12l-7 7-7-7"/>
-                </svg>
-            </div>
-        </section>
-
-        <!-- Services Section -->
-        <section id="services" class="section-alt">
-            <div class="container">
-                <div class="section-header fade-up">
-                    <h2>O que eu faço</h2>
-                    <p>Crio soluções digitais simples e funcionais para negócios locais.</p>
-                </div>
-
-                <div class="services-grid">
-                    <!-- Service 1 -->
-                    <div class="service-card fade-up delay-1">
-                        <div class="skeleton skeleton-card"></div>
-                        <div class="real-content" style="height: 100%; display: flex; flex-direction: column;">
-                            <div class="service-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                                </svg>
-                            </div>
-                            <h3>Sites Institucionais</h3>
-                            <p>Sites claros e organizados para negócios locais e profissionais.</p>
-                            <a href="https://wa.me/5589981202147?text=Olá%20João!%20Tenho%20interesse%20em%20criar%20um%20site%20institucional%20para%20meu%20negócio.%20Podemos%20conversar?"
-                                class="btn btn-whatsapp btn-sm js-whatsapp" target="_blank" rel="noopener">
-                                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-                                </svg>
-                                Quero um site
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Service 2 -->
-                    <div class="service-card fade-up delay-2">
-                        <div class="skeleton skeleton-card"></div>
-                        <div class="real-content" style="height: 100%; display: flex; flex-direction: column;">
-                            <div class="service-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
-                                    <path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/>
-                                </svg>
-                            </div>
-                            <h3>Landing Pages</h3>
-                            <p>Páginas focadas em conversão para serviços e lançamentos.</p>
-                            <a href="https://wa.me/5589981202147?text=Olá%20João!%20Preciso%20de%20uma%20landing%20page%20para%20meu%20produto/serviço.%20Podemos%20conversar?"
-                                class="btn btn-whatsapp btn-sm js-whatsapp" target="_blank" rel="noopener">
-                                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-                                </svg>
-                                Criar landing page
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Service 3 -->
-                    <div class="service-card fade-up delay-3">
-                        <div class="skeleton skeleton-card"></div>
-                        <div class="real-content" style="height: 100%; display: flex; flex-direction: column;">
-                            <div class="service-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
-                                </svg>
-                            </div>
-                            <h3>Automações</h3>
-                            <p>Integrações com Google Drive e Sheets para reduzir trabalho manual.</p>
-                            <a href="https://wa.me/5589981202147?text=Olá%20João!%20Gostaria%20de%20automatizar%20processos%20no%20meu%20negócio.%20Pode%20me%20ajudar?"
-                                class="btn btn-whatsapp btn-sm js-whatsapp" target="_blank" rel="noopener">
-                                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-                                </svg>
-                                Automatizar tarefas
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Service 4 -->
-                    <div class="service-card fade-up delay-4">
-                        <div class="skeleton skeleton-card"></div>
-                        <div class="real-content" style="height: 100%; display: flex; flex-direction: column;">
-                            <div class="service-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-                                    <circle cx="12" cy="10" r="3"/>
-                                </svg>
-                            </div>
-                            <h3>Google Maps</h3>
-                            <p>Configuração e otimização para visibilidade local no Google.</p>
-                            <a href="https://wa.me/5589981202147?text=Olá%20João!%20Quero%20melhorar%20a%20presença%20do%20meu%20negócio%20no%20Google%20Maps.%20Pode%20me%20ajudar?"
-                                class="btn btn-whatsapp btn-sm js-whatsapp" target="_blank" rel="noopener">
-                                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-                                </svg>
-                                Configurar Maps
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Process Section -->
-        <section id="process">
-            <div class="container">
-                <div class="section-header fade-up">
-                    <h2>Como eu trabalho</h2>
-                    <p>Não vendo sites. Vendo soluções.</p>
-                </div>
-
-                <div class="process-card fade-up delay-1">
-                    <p>Antes de escrever qualquer linha de código, eu entendo o problema que precisa ser resolvido. Cada projeto nasce simples, funcional e pensado para o momento atual do negócio.</p>
-                    <p class="highlight-text">A solução se adapta ao projeto — nunca o contrário.</p>
-                </div>
-
-                <div class="process-steps">
-                    <div class="step fade-up delay-1">
-                        <div class="step-number">1</div>
-                        <div class="step-content">
-                            <h4>Entendo</h4>
-                            <p>O problema real do seu negócio</p>
-                        </div>
-                    </div>
-                    <div class="step fade-up delay-2">
-                        <div class="step-number">2</div>
-                        <div class="step-content">
-                            <h4>Desenvolvo</h4>
-                            <p>A solução mais simples e funcional</p>
-                        </div>
-                    </div>
-                    <div class="step fade-up delay-3">
-                        <div class="step-number">3</div>
-                        <div class="step-content">
-                            <h4>Entrego</h4>
-                            <p>Um site que resolve de verdade</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Technologies Section -->
-        <section id="tech" class="section-alt">
-            <div class="container">
-                <div class="section-header fade-up">
-                    <h2>Tecnologias</h2>
-                    <p>Programo com foco em desempenho, clareza e fácil manutenção.</p>
-                </div>
-
-                <div class="tech-grid">
-                    <div class="tech-item fade-up delay-1">
-                        <div class="tech-icon">{}</div>
-                        <h4>HTML/CSS/JS</h4>
-                        <p>Código puro e semântico</p>
-                    </div>
-                    <div class="tech-item fade-up delay-2">
-                        <div class="tech-icon">WP</div>
-                        <h4>WordPress</h4>
-                        <p>Quando faz sentido</p>
-                    </div>
-                    <div class="tech-item fade-up delay-3">
-                        <div class="tech-icon">⚡</div>
-                        <h4>Performance</h4>
-                        <p>Sites rápidos</p>
-                    </div>
-                    <div class="tech-item fade-up delay-4">
-                        <div class="tech-icon">🤖</div>
-                        <h4>Automações</h4>
-                        <p>Google Apps Script</p>
-                    </div>
-                </div>
-
-                <div class="focus-box fade-up">
-                    <div class="focus-badge">Meu foco</div>
-                    <h3>Desenvolvimento e automação</h3>
-                    <p>Não trabalho com criação de artes para redes sociais. Meu foco é desenvolvimento, estrutura e automação — onde consigo gerar mais impacto.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Clientele Section -->
-        <section id="clientele">
-            <div class="container">
-                <div class="section-header fade-up">
-                    <h2>Para quem é</h2>
-                    <p>Atendo quem precisa de resultado real:</p>
-                </div>
-
-                <div class="clientele-grid">
-                    <div class="clientele-item fade-up delay-1">
-                        <h3>Pequenos negócios</h3>
-                        <p>Microempreendedores locais</p>
-                    </div>
-                    <div class="clientele-item fade-up delay-2">
-                        <h3>Profissionais</h3>
-                        <p>Dentistas, nutricionistas</p>
-                    </div>
-                    <div class="clientele-item fade-up delay-3">
-                        <h3>Conteúdo</h3>
-                        <p>Influenciadores e cursos</p>
-                    </div>
-                    <div class="clientele-item fade-up delay-4">
-                        <h3>Região local</h3>
-                        <p>Serra da Capivara</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Featured Project Section -->
-        <section id="projects" class="section-alt">
-            <div class="container">
-                <div class="section-header fade-up">
-                    <h2>Projeto em destaque</h2>
-                    <p>Soluções que desenvolvem soluções</p>
-                </div>
-
-                <div class="featured-project fade-up delay-1">
-                    <div class="project-badge">Em desenvolvimento</div>
-                    <h3 class="project-title">Sisteminha do Prota</h3>
-                    <p class="project-desc">Plataforma de objetivos que transforma metas em missões diárias.</p>
-                    <div class="project-tags">
-                        <span class="tag">Gamificação</span>
-                        <span class="tag">Produtividade</span>
-                        <span class="tag">Progress Tracking</span>
-                        <span class="tag">JavaScript</span>
-                    </div>
-                    <p class="project-info">O sistema acompanha o progresso, ajusta desafios automaticamente e mantém a constância com gamificação e feedback contínuo.</p>
-                </div>
-
-                <div class="featured-project fade-up delay-2">
-                    <div class="project-badge">Concluído</div>
-                    <h3 class="project-title">Patinhas felizes</h3>
-                    <p class="project-desc">Plataforma de adoção de animais no formato de uma rede social.</p>
-                    <div class="project-tags">
-                        <span class="tag">Adoção</span>
-                        <span class="tag">Rede Social</span>
-                        <span class="tag">Pet</span>
-                    </div>
-                    <p class="project-info">É uma rede social pra pets com funcionalidade de adoção</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA Section -->
-        <section id="contact">
-            <div class="container">
-                <div class="cta-section fade-up">
-                    <h2>Pronto para começar?</h2>
-                    <p>Se você precisa de um site simples, funcional e pensado para o seu negócio, posso ajudar.</p>
-                    <div class="cta-buttons">
-                        <a href="#services" class="btn btn-secondary">Ver serviços</a>
-                        <a href="https://wa.me/5589981202147?text=Olá%20João!%20Vi%20seu%20portfólio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto."
-                            class="btn btn-whatsapp js-whatsapp" target="_blank" rel="noopener">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-                            </svg>
-                            Falar no WhatsApp
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-logo">>_</div>
-            <p class="footer-tagline">Código limpo. Soluções reais.</p>
-            <nav class="footer-links">
-                <a href="#home" class="footer-link">Início</a>
-                <a href="#services" class="footer-link">Serviços</a>
-                <a href="#process" class="footer-link">Processo</a>
-                <a href="#contact" class="footer-link">Contato</a>
-            </nav>
-            <p class="copyright">© 2026 Desenjão – Dev Full Stack. Todos os direitos reservados.</p>
-        </div>
-    </footer>
+    <!-- Ícones (para o check) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <script>
-       // main.js - Funcionalidades principais do site
+        // Lista de imagens
+        const imagesToPreload = [
+            'img/ttle.png',
+            'img/servicos.png',
+            'img/2.png',
+            'img/3.png',
+            'img/4.png',
+            'img/fundo.png'
+        ];
 
-document.addEventListener('DOMContentLoaded', function () {
-    // ====================
-    // MATRIX RAIN EFFECT
-    // ====================
-    function initMatrixRain() {
-        const canvas = document.getElementById('matrix-canvas');
-        if (!canvas) return;
+        // Elementos DOM
+        const progressBar = document.getElementById('progressBar');
+        const loadedSpan = document.getElementById('loadedCount');
+        const totalSpan = document.getElementById('totalCount');
+        const readyMessage = document.getElementById('readyMessage');
+        const redirectInfo = document.getElementById('redirectInfo');
+        const bubbleCounter = document.getElementById('bubbleCounter');
+        const percentageDisplay = document.getElementById('percentageDisplay');
         
-        const ctx = canvas.getContext('2d');
-        let matrixInterval = null;
+        // Criar bolhas líquidas
+        imagesToPreload.forEach((_, index) => {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            bubble.id = `bubble-${index}`;
+            bubbleCounter.appendChild(bubble);
+        });
 
-        function resizeCanvas() {
-            const hero = document.querySelector('.hero');
-            if (!hero) return;
-            canvas.width = hero.offsetWidth;
-            canvas.height = hero.offsetHeight;
+        let loadedImages = 0;
+        const totalImages = imagesToPreload.length;
+        totalSpan.textContent = totalImages;
+
+        function markImageLoaded(index) {
+            const bubble = document.getElementById(`bubble-${index}`);
+            if (bubble) bubble.classList.add('loaded');
         }
 
-        function initMatrix() {
-            resizeCanvas();
-            const chars = '01'.repeat(64);
-            const charArray = chars.split('');
-            const fontSize = 14;
-            let columns = Math.floor(canvas.width / fontSize);
-            let drops = [];
-
-            function initDrops() {
-                columns = Math.floor(canvas.width / fontSize);
-                drops = [];
-                for (let i = 0; i < columns; i++) {
-                    drops[i] = Math.random() * -100;
-                }
-            }
-
-            function drawMatrix() {
-                ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                ctx.fillStyle = '#00ff9c';
-                ctx.font = fontSize + 'px JetBrains Mono, monospace';
-
-                for (let i = 0; i < drops.length; i++) {
-                    const char = charArray[Math.floor(Math.random() * charArray.length)];
-                    const x = i * fontSize;
-                    const y = drops[i] * fontSize;
+        function preloadImage(src, index) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.src = src;
+                img.onload = () => {
+                    loadedImages++;
+                    loadedSpan.textContent = loadedImages;
                     
-                    const opacity = Math.random() * 0.5 + 0.3;
-                    ctx.fillStyle = `rgba(0, 255, 156, ${opacity})`;
-                    ctx.fillText(char, x, y);
-
-                    if (Math.random() > 0.975) {
-                        ctx.fillStyle = '#ffffff';
-                        ctx.fillText(char, x, y);
-                    }
-
-                    if (y > canvas.height && Math.random() > 0.975) {
-                        drops[i] = 0;
+                    const percentage = (loadedImages / totalImages) * 100;
+                    progressBar.style.width = `${percentage}%`;
+                    percentageDisplay.textContent = `${Math.round(percentage)}%`;
+                    
+                    markImageLoaded(index);
+                    
+                    if (loadedImages === totalImages) {
+                        redirectInfo.textContent = 'redirecionando em 1 segundo';
+                        readyMessage.classList.add('show');
+                        
+                        // Redireciona
+                        setTimeout(() => {
+                            window.location.href = 'biosite.html';
+                        }, 1000);
+                    } else {
+                        redirectInfo.textContent = `processando... ${Math.round(percentage)}%`;
                     }
                     
-                    drops[i]++;
-                }
-            }
-
-            initDrops();
-            matrixInterval = setInterval(drawMatrix, 50);
-
-            // Event listeners
-            window.addEventListener('resize', () => {
-                resizeCanvas();
-                initDrops();
-            });
-
-            document.addEventListener('visibilitychange', function() {
-                if (document.hidden) {
-                    clearInterval(matrixInterval);
-                } else {
-                    matrixInterval = setInterval(drawMatrix, 50);
-                }
+                    resolve();
+                };
+                img.onerror = () => {
+                    console.error(`Erro: ${src}`);
+                    loadedImages++;
+                    loadedSpan.textContent = loadedImages;
+                    const percentage = (loadedImages / totalImages) * 100;
+                    progressBar.style.width = `${percentage}%`;
+                    percentageDisplay.textContent = `${Math.round(percentage)}%`;
+                    markImageLoaded(index);
+                    reject();
+                };
             });
         }
 
-        initMatrix();
-    }
-
-    // ====================
-    // LOADING SCREEN
-    // ====================
-    function initLoadingScreen() {
-        const loadingScreen = document.getElementById('loadingScreen');
-        if (!loadingScreen) return;
-
-        // Garantir que a tela de loading suma
-        setTimeout(() => {
-            loadingScreen.classList.add('hidden');
-            document.body.classList.add('content-loaded');
+        function createParticles() {
+            const container = document.getElementById('particles-loading');
+            const particleCount = 20;
             
-            // Iniciar animações após o carregamento
-            setTimeout(initAnimations, 100);
-        }, 800);
-
-        // Fallback após 3 segundos
-        setTimeout(() => {
-            loadingScreen.classList.add('hidden');
-            document.body.classList.add('content-loaded');
-        }, 3000);
-    }
-
-    // ====================
-    // ANIMATIONS
-    // ====================
-    function initAnimations() {
-        // Intersection Observer para animações fade-up
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
-
-        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-    }
-
-    // ====================
-    // SMOOTH SCROLL
-    // ====================
-    function initSmoothScroll() {
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href === '#') return;
-
-                e.preventDefault();
-                const target = document.querySelector(href);
-
-                if (target) {
-                    const offset = 80;
-                    const position = target.getBoundingClientRect().top + window.pageYOffset - offset;
-
-                    window.scrollTo({
-                        top: position,
-                        behavior: 'smooth'
-                    });
-
-                    history.pushState(null, null, href);
-                }
-            });
-        });
-    }
-
-    // ====================
-    // ACTIVE NAV LINKS
-    // ====================
-    function initActiveLinks() {
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.footer-link');
-
-        function updateActiveLink() {
-            let current = '';
-            const scrollPos = window.scrollY + 150;
-
-            sections.forEach(section => {
-                const top = section.offsetTop;
-                const height = section.clientHeight;
-
-                if (scrollPos >= top && scrollPos < top + height) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.style.color = link.getAttribute('href') === `#${current}`
-                    ? 'var(--accent)'
-                    : '';
-            });
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle-load';
+                
+                const size = Math.random() * 100 + 30;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                
+                container.appendChild(particle);
+            }
         }
 
-        window.addEventListener('scroll', updateActiveLink);
-        updateActiveLink(); // Initial call
-    }
-
-    // ====================
-    // INITIALIZE ALL
-    // ====================
-    function initAll() {
-        initMatrixRain();
-        initLoadingScreen();
-        initSmoothScroll();
-        initActiveLinks();
-        
-        console.log('✓ Site carregado e funcional');
-    }
-
-    // Start everything
-    initAll();
-});
-
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            
+            const loadPromises = imagesToPreload.map((src, index) => 
+                preloadImage(src, index)
+            );
+            
+            // Fallback
+            setTimeout(() => {
+                if (loadedImages < totalImages) {
+                    window.location.href = 'biosite.html';
+                }
+            }, 8000);
+        });
     </script>
-      <script src="metricas.js"></script> <!-- Primeiro: métricas -->
 </body>
-
 </html>

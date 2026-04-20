@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Mentoria Empresarial | João Pereira — Digitalize e Automatize seu Negócio</title>
+    <meta name="description" content="Migre sua empresa para o digital e reduza custos com automações inteligentes. Diagnóstico personalizado para empresários.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0A0A0A;
+            --bg-secondary: #111111;
+            --text-primary: #FFFFFF;
+            --text-secondary: #CCCCCC;
+            --accent: #00FF88;
+            --accent-gradient: linear-gradient(135deg, #00CC66, #00FF88);
+            --accent-dark: #00B35F;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-bg-solid: #1A1A1A;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            --shadow-glow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #F5F5F7;
+            --bg-secondary: #FFFFFF;
+            --text-primary: #1D1D1F;
+            --text-secondary: #424245;
+            --card-bg: rgba(0, 0, 0, 0.03);
+            --card-bg-solid: #FFFFFF;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            --shadow-glow: 0 0 20px rgba(0, 204, 102, 0.2);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--card-bg-solid);
+            border: 1px solid var(--border-color);
+            border-radius: 40px;
+            padding: 6px;
+            display: flex;
+            gap: 4px;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+        }
+
+        .theme-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            width: 38px;
+            height: 38px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+        }
+
+        .theme-btn.active {
+            background: var(--accent-gradient);
+            color: #000;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 40px;
+            padding: 8px 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--accent);
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #00FF88, #00CC66, #FFFFFF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .subhead {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+            padding: 40px 0 60px;
+        }
+
+        .hero-left h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .pain-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .pain-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+
+        .pain-list li i {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .hero-right {
+            background: linear-gradient(135deg, var(--card-bg-solid), var(--bg-secondary));
+            border-radius: 32px;
+            padding: 40px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+        }
+
+        .price-big {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .price-small {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .btn-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-whatsapp:hover {
+            transform: scale(1.02);
+            background: #20b859;
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-outline-accent {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        .btn-outline-accent:hover {
+            background: rgba(0, 255, 136, 0.1);
+            transform: scale(1.02);
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 48px;
+        }
+
+        .section-title span {
+            color: var(--accent);
+        }
+
+        /* Cards Grid */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: var(--card-bg-solid);
+            border: 1px solid var(--border-color);
+            border-radius: 28px;
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 255, 136, 0.5);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .card-icon i {
+            font-size: 28px;
+            color: var(--accent);
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Timeline */
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .timeline-step {
+            text-align: center;
+            padding: 24px;
+            background: var(--card-bg-solid);
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #000;
+            margin: 0 auto 16px;
+        }
+
+        /* Results */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .result-card {
+            text-align: center;
+            padding: 32px;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), transparent);
+            border-radius: 28px;
+        }
+
+        .result-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        /* Bonus */
+        .bonus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .bonus-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: var(--card-bg-solid);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .bonus-item i {
+            font-size: 28px;
+            color: var(--accent);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(135deg, var(--card-bg-solid), var(--bg-secondary));
+            border-radius: 48px;
+            padding: 60px 40px;
+            margin: 60px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 32px;
+        }
+
+        /* FAQ */
+        .faq-grid {
+            max-width: 800px;
+            margin: 0 auto 60px;
+        }
+
+        .faq-item {
+            background: var(--card-bg-solid);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px 24px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question i {
+            color: var(--accent);
+            transition: transform 0.3s;
+        }
+
+        .faq-answer {
+            padding: 0 24px 20px;
+            color: var(--text-secondary);
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .section-title {
+                font-size: 1.5rem;
+            }
+            .container {
+                padding: 0 16px;
+            }
+            .cta-section {
+                padding: 40px 20px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+
+<div class="theme-toggle">
+    <button class="theme-btn active" data-theme="dark" onclick="setTheme('dark')">
+        <i class="fas fa-moon"></i>
+    </button>
+    <button class="theme-btn" data-theme="light" onclick="setTheme('light')">
+        <i class="fas fa-sun"></i>
+    </button>
+</div>
+
+<div class="container">
+    <!-- Header -->
+    <div class="header">
+        <div class="badge">
+            <i class="fas fa-robot"></i> Apenas 5 vagas por turma
+        </div>
+        <h1>Digitalize sua Empresa<br>e Automatize Processos</h1>
+        <div class="subhead">
+            Reduza custos operacionais, elimine tarefas manuais e faça seu negócio funcionar sozinho com automações inteligentes
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-left">
+            <h2>Sua empresa ainda funciona no <span style="color: var(--accent);">papel e planilha</span>?</h2>
+            <ul class="pain-list">
+                <li><i class="fas fa-times-circle"></i> Tarefas repetitivas que tomam horas do dia</li>
+                <li><i class="fas fa-times-circle"></i> Informações perdidas em e-mails e WhatsApp</li>
+                <li><i class="fas fa-times-circle"></i> Dependência de funcionários para processos simples</li>
+                <li><i class="fas fa-times-circle"></i> Clientes esperando resposta porque tudo é manual</li>
+                <li><i class="fas fa-times-circle"></i> Sem controle real do que entra e sai</li>
+            </ul>
+        </div>
+        <div class="hero-right">
+            <div style="text-align: center; margin-bottom: 24px;">
+                <i class="fas fa-chart-line" style="font-size: 48px; color: var(--accent);"></i>
+            </div>
+            <div style="text-align: center;">
+                <span class="price-big">12x R$ 597</span>
+                <p class="price-small">ou R$ 5.970 à vista (10% off)</p>
+                <p style="margin: 16px 0; color: var(--accent);">📄 Nota fiscal para CNPJ</p>
+                <button class="btn-whatsapp" onclick="sendWhatsApp('DIAGNÓSTICO')">
+                    <i class="fab fa-whatsapp"></i> Quero meu diagnóstico
+                </button>
+                <button class="btn-outline-accent" onclick="sendWhatsApp('MENTORIA')">
+                    <i class="fas fa-calendar-check"></i> Agendar call sem custo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- What you'll learn -->
+    <h2 class="section-title">O que você vai <span>aprender</span></h2>
+    <div class="grid-3">
+        <div class="card">
+            <div class="card-icon"><i class="fas fa-stethoscope"></i></div>
+            <h3>Fase 1 — Diagnóstico</h3>
+            <p>Mapeamento completo dos seus processos atuais, identificação de gargalos e tarefas repetitivas que podem (e devem) ser automatizadas.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <h3>Fase 2 — Migração Digital</h3>
+            <p>Definição da stack tecnológica certa pro seu negócio. Estruturação do fluxo digital ideal sem caos ou interrupções.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon"><i class="fas fa-robot"></i></div>
+            <h3>Fase 3 — Automação</h3>
+            <p>Automação de captação, atendimento, faturamento, CRM e integração entre ferramentas (n8n, Make, Zapier).</p>
+        </div>
+        <div class="card">
+            <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+            <h3>Fase 4 — Operação Autônoma</h3>
+            <p>Sua empresa rodando com supervisão mínima, dashboards automáticos e otimização contínua.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon"><i class="fas fa-clock"></i></div>
+            <h3>12 Sessões Individuais</h3>
+            <p>Acompanhamento 1:1 comigo, suporte direto no WhatsApp e implementação guiada passo a passo.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon"><i class="fas fa-tachometer-alt"></i></div>
+            <h3>Redução de 70%</h3>
+            <p>Empresas que passam pela mentoria reduzem em média 70% das tarefas manuais e otimizam o tempo da equipe.</p>
+        </div>
+    </div>
+
+    <!-- Timeline -->
+    <h2 class="section-title">Como <span>funciona</span></h2>
+    <div class="timeline">
+        <div class="timeline-step">
+            <div class="step-number">1</div>
+            <h3>Diagnóstico</h3>
+            <p>Análise completa do seu negócio e mapeamento de oportunidades (2 semanas)</p>
+        </div>
+        <div class="timeline-step">
+            <div class="step-number">2</div>
+            <h3>Estratégia</h3>
+            <p>Definição do fluxo digital e ferramentas ideais (3 semanas)</p>
+        </div>
+        <div class="timeline-step">
+            <div class="step-number">3</div>
+            <h3>Implementação</h3>
+            <p>Automação guiada de todos os processos (4 semanas)</p>
+        </div>
+        <div class="timeline-step">
+            <div class="step-number">4</div>
+            <h3>Escala</h3>
+            <p>Monitoramento, ajustes e operação autônoma (3 semanas)</p>
+        </div>
+    </div>
+
+    <!-- Results -->
+    <h2 class="section-title">Resultados <span>reais</span></h2>
+    <div class="results-grid">
+        <div class="result-card">
+            <div class="result-number">-70%</div>
+            <p>de tarefas manuais</p>
+        </div>
+        <div class="result-card">
+            <div class="result-number">10h → 2h</div>
+            <p>por dia em processos operacionais</p>
+        </div>
+        <div class="result-card">
+            <div class="result-number">+40%</div>
+            <p>aumento no faturamento</p>
+        </div>
+        <div class="result-card">
+            <div class="result-number">24/7</div>
+            <p>empresa funcionando sozinha</p>
+        </div>
+    </div>
+
+    <!-- Bonus -->
+    <h2 class="section-title"><span>Bônus</span> exclusivos</h2>
+    <div class="bonus-grid">
+        <div class="bonus-item">
+            <i class="fas fa-map"></i>
+            <div><strong>Mapa de Automação Personalizado</strong><br>Valor R$ 1.500</div>
+        </div>
+        <div class="bonus-item">
+            <i class="fas fa-check-double"></i>
+            <div><strong>Check-list de Migração Digital</strong><br>Passo a passo completo</div>
+        </div>
+        <div class="bonus-item">
+            <i class="fas fa-file-alt"></i>
+            <div><strong>Template de Processos</strong><br>Operacionais prontos</div>
+        </div>
+        <div class="bonus-item">
+            <i class="fas fa-users"></i>
+            <div><strong>Grupo VIP</strong><br>Com outros empresários</div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+        <h2>Quer fazer sua empresa <span style="color: var(--accent);">decolar no digital</span>?</h2>
+        <p>Agende uma call gratuita e descubra como podemos transformar seus processos em 12 semanas</p>
+        <div class="cta-buttons">
+            <button class="btn-whatsapp" onclick="sendWhatsApp('DIAGNÓSTICO')">
+                <i class="fab fa-whatsapp"></i> Quero meu diagnóstico
+            </button>
+            <button class="btn-outline-accent" onclick="sendWhatsApp('MENTORIA')">
+                <i class="fas fa-calendar-check"></i> Agendar call sem custo
+            </button>
+        </div>
+    </div>
+
+    <!-- FAQ -->
+    <h2 class="section-title">Dúvidas <span>frequentes</span></h2>
+    <div class="faq-grid">
+        <div class="faq-item">
+            <div class="faq-question">
+                Para quem é essa mentoria?
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                Para empresários, gestores e negócios que ainda funcionam com processos manuais (papel, planilha, e-mail) e querem migrar para o digital com automações inteligentes.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                Preciso ter conhecimento técnico?
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                Não. A mentoria é desenhada para empresários sem conhecimento técnico. Eu vou te guiar em cada passo da implementação.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                Quanto tempo dura a mentoria?
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                12 semanas de acompanhamento individual, com sessões semanais de 1 hora e suporte contínuo no WhatsApp.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                Como funciona o pagamento?
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                Pagamento via cartão de crédito (12x de R$ 597) ou à vista com 10% off (R$ 5.970). Emissão de nota fiscal para CNPJ.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                E se não funcionar para o meu negócio?
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                Na primeira semana de diagnóstico, se você sentir que não é para você, devolvemos 100% do investimento. Sem burocracia.
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 João Pereira (desenjao) · Arquiteto de Presença Digital</p>
+        <p style="margin-top: 8px;">
+            <i class="fab fa-whatsapp"></i> <a href="#" onclick="sendWhatsApp('Olá!')" style="color: var(--accent); text-decoration: none;">(89) 98120-2147</a>
+        </p>
+    </footer>
+</div>
+
+<script>
+    const WA_PHONE = "5589981202147";
+
+    function setTheme(theme) {
+        document.body.setAttribute('data-theme', theme);
+        document.querySelectorAll('.theme-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-theme') === theme);
+        });
+        localStorage.setItem('theme', theme);
+    }
+
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
+
+    function sendWhatsApp(message) {
+        const encodedMsg = encodeURIComponent(message);
+        window.open(`https://wa.me/${WA_PHONE}?text=${encodedMsg}`, '_blank');
+    }
+
+    // FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', () => {
+            const faqItem = question.parentElement;
+            faqItem.classList.toggle('active');
+        });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+</script>
+</body>
+</html>

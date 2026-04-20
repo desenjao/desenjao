@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>João Pereira | Arquitetura Digital • Hub Tecnológico</title>
+    
+    <!-- Fonts Premium Tech -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome 6 + Three.js para background 3D -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --neon-green: #00FF87;
+            --neon-cyan: #00E5FF;
+            --neon-purple: #B800FF;
+            --bg-deep: #0A0A0F;
+            --surface-glass: rgba(15, 20, 18, 0.65);
+            --glass-border: rgba(0, 255, 135, 0.2);
+            --text-primary: #FFFFFF;
+            --text-secondary: #B0B5B3;
+            --text-muted: #6E7672;
+            --card-bg: rgba(18, 22, 20, 0.75);
+            --shadow-neon: 0 0 20px rgba(0, 255, 135, 0.3);
+            --transition-smooth: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        body {
+            background: var(--bg-deep);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Canvas 3D Background */
+        #canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Conteúdo principal */
+        main {
+            position: relative;
+            z-index: 10;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 3rem;
+            min-height: 100vh;
+        }
+
+        /* ===== HERO SECTION DINÂMICA ===== */
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: floatIn 0.8s ease-out;
+        }
+
+        .tech-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 255, 135, 0.08);
+            backdrop-filter: blur(12px);
+            padding: 0.4rem 1.2rem;
+            border-radius: 60px;
+            border: 1px solid rgba(0, 255, 135, 0.3);
+            margin-bottom: 1.5rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: var(--neon-green);
+            box-shadow: 0 0 15px rgba(0, 255, 135, 0.1);
+        }
+
+        .tech-badge i {
+            animation: pulseIcon 1.5s infinite;
+        }
+
+        /* Avatar com efeito glitch e rotação 3D */
+        .avatar-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.2rem;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .avatar-3d {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #00FF87, #00B8FF);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 0 0 3px rgba(0, 255, 135, 0.5), 0 0 30px rgba(0, 255, 135, 0.4);
+            transition: all 0.3s;
+            animation: borderPulse 2s infinite;
+        }
+
+        .avatar-3d i {
+            filter: drop-shadow(0 0 8px white);
+        }
+
+        .avatar-container:hover .avatar-3d {
+            transform: scale(1.05) rotate(5deg);
+            box-shadow: 0 0 0 5px rgba(0, 255, 135, 0.8), 0 0 50px var(--neon-green);
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 2.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FFFFFF, var(--neon-green), var(--neon-cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.3rem;
+        }
+
+        .glitch-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 0.5rem;
+        }
+
+        .neon-pulse {
+            width: 8px;
+            height: 8px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--neon-green);
+            animation: pulseDot 1.5s infinite;
+        }
+
+        /* ===== CARDS DE NAVEGAÇÃO DINÂMICOS ===== */
+        .nav-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            margin: 2rem 0;
+        }
+
+        .nav-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 1.2rem 1.5rem;
+            border: 1px solid var(--glass-border);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 135, 0.15), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-card:hover::before {
+            left: 100%;
+        }
+
+        .nav-card:hover {
+            transform: translateX(8px) translateY(-3px);
+            border-color: var(--neon-green);
+            box-shadow: 0 10px 30px rgba(0, 255, 135, 0.2);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 255, 135, 0.1);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--neon-green);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-card:hover .card-icon {
+            background: rgba(0, 255, 135, 0.25);
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .card-info {
+            flex: 1;
+        }
+
+        .card-info h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            margin-bottom: 0.2rem;
+        }
+
+        .card-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .card-arrow {
+            color: var(--neon-green);
+            font-size: 1.2rem;
+            opacity: 0.5;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-card:hover .card-arrow {
+            opacity: 1;
+            transform: translateX(6px);
+        }
+
+        /* ===== STATS TECH ===== */
+        .tech-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+            margin: 2rem 0;
+        }
+
+        .stat-block {
+            background: rgba(0, 255, 135, 0.03);
+            border-radius: 20px;
+            padding: 1rem;
+            text-align: center;
+            border: 0.5px solid rgba(0, 255, 135, 0.15);
+            backdrop-filter: blur(8px);
+            transition: var(--transition-smooth);
+        }
+
+        .stat-block:hover {
+            border-color: var(--neon-green);
+            transform: translateY(-3px);
+            background: rgba(0, 255, 135, 0.08);
+        }
+
+        .stat-number {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--neon-green);
+        }
+
+        .stat-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ===== BOTÃO CTA NEON ===== */
+        .btn-neon {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(135deg, #00FF87, #00B8FF);
+            color: #0A0A0F;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .btn-neon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-neon:hover::before {
+            left: 100%;
+        }
+
+        .btn-neon:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(0, 255, 135, 0.6);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 0.5px solid rgba(0, 255, 135, 0.15);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== ANIMAÇÕES ===== */
+        @keyframes floatIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulseIcon {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); box-shadow: 0 0 20px var(--neon-green); }
+        }
+
+        @keyframes borderPulse {
+            0%, 100% { box-shadow: 0 0 0 3px rgba(0, 255, 135, 0.5), 0 0 30px rgba(0, 255, 135, 0.4); }
+            50% { box-shadow: 0 0 0 6px rgba(0, 255, 135, 0.3), 0 0 50px rgba(0, 255, 135, 0.6); }
+        }
+
+        .nav-card {
+            animation: floatIn 0.5s backwards;
+        }
+        .nav-card:nth-child(1) { animation-delay: 0.05s; }
+        .nav-card:nth-child(2) { animation-delay: 0.1s; }
+        .nav-card:nth-child(3) { animation-delay: 0.15s; }
+        .nav-card:nth-child(4) { animation-delay: 0.2s; }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            main {
+                padding: 1.5rem 1rem 2rem;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .card-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.4rem;
+            }
+            .tech-stats {
+                gap: 0.5rem;
+            }
+            .stat-number {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Scrollbar custom */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1A1F1D;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-green);
+            border-radius: 10px;
+        }
+
+        .btn-clicked {
+            transform: scale(0.96);
+            transition: 0.05s linear;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Canvas 3D de fundo (partículas tecnológicas) -->
+    <canvas id="canvas-bg"></canvas>
+
+    <main>
+        <div class="hero">
+            <div class="tech-badge">
+                <i class="fas fa-microchip"></i>
+                <span>ARQUITETURA DIGITAL 4.0</span>
+                <i class="fas fa-bolt"></i>
+            </div>
+            
+            <div class="avatar-container" id="avatarClick">
+                <div class="avatar-3d">
+                    <i class="fas fa-cube"></i>
+                </div>
+            </div>
+            
+            <h1>João Pereira</h1>
+            <div class="glitch-text">
+                <span class="neon-pulse"></span>
+                <span>Arquiteto de Presença Digital</span>
+                <span class="neon-pulse"></span>
+            </div>
+            <p style="font-size: 0.85rem; color: #8A9A92; margin-top: 10px;">Design generativo · Performance extrema · Conversão autônoma</p>
+        </div>
+
+        <!-- Cards de Navegação com efeitos dinâmicos -->
+        <div class="nav-grid">
+            <div class="nav-card" data-destination="servicos">
+                <div class="card-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="card-info">
+                    <h3>Serviços <span style="color: #00FF87;">⚡</span></h3>
+                    <p>Landing pages, ecossistemas institucionais e automação</p>
+                </div>
+                <div class="card-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </div>
+
+            <div class="nav-card" data-destination="portfolio">
+                <div class="card-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <div class="card-info">
+                    <h3>Portfólio</h3>
+                    <p>Cases reais com métricas de conversão e inovação</p>
+                </div>
+                <div class="card-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </div>
+
+            <div class="nav-card" data-destination="sobre">
+                <div class="card-icon">
+                    <i class="fas fa-user-astronaut"></i>
+                </div>
+                <div class="card-info">
+                    <h3>Metodologia</h3>
+                    <p>Filosofia, stack tecnológica e processo criativo</p>
+                </div>
+                <div class="card-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </div>
+
+            <div class="nav-card" data-destination="contato" data-whatsapp="true">
+                <div class="card-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <div class="card-info">
+                    <h3>Conexão Direta</h3>
+                    <p>Fale agora via WhatsApp e agende uma call estratégica</p>
+                </div>
+                <div class="card-arrow">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats com números dinâmicos (efeito contador) -->
+        <div class="tech-stats">
+            <div class="stat-block">
+                <div class="stat-number" data-count="48">0</div>
+                <div class="stat-label">HORAS DE DEPLOY</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-number" data-count="156">0</div>
+                <div class="stat-label">PROJETOS ENTREGUES</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-number" data-count="97">0</div>
+                <div class="stat-label">SATISFAÇÃO %</div>
+            </div>
+        </div>
+
+        <!-- CTA Principal -->
+        <button class="btn-neon" id="ctaPrincipal">
+            <i class="fab fa-whatsapp"></i> Diagnóstico Estratégico Grátis
+            <i class="fas fa-arrow-right"></i>
+        </button>
+
+        <footer>
+            <p><i class="fas fa-cube" style="color: #00FF87;"></i> Tecnologia de ponta · Arquitetura orientada a dados</p>
+            <p style="margin-top: 0.4rem;">© João Pereira — Inovação e performance com assinatura neon</p>
+        </footer>
+    </main>
+
+    <!-- Three.js e script principal -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+
+        // ========== BACKGROUND 3D COM PARTÍCULAS DINÂMICAS ==========
+        const canvas = document.getElementById('canvas-bg');
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x0A0A0F);
+        
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 30;
+        
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: false });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        
+        // Grade tecnológica
+        const gridHelper = new THREE.GridHelper(60, 40, 0x00FF87, 0x2A5A3A);
+        gridHelper.position.y = -8;
+        gridHelper.material.transparent = true;
+        gridHelper.material.opacity = 0.25;
+        scene.add(gridHelper);
+        
+        // Partículas flutuantes
+        const particleCount = 1800;
+        const particlesGeometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+        const colors = new Float32Array(particleCount * 3);
+        
+        for (let i = 0; i < particleCount; i++) {
+            positions[i*3] = (Math.random() - 0.5) * 80;
+            positions[i*3+1] = (Math.random() - 0.5) * 50;
+            positions[i*3+2] = (Math.random() - 0.5) * 50 - 20;
+            
+            const colorChoice = Math.random();
+            if (colorChoice > 0.7) {
+                colors[i*3] = 0; colors[i*3+1] = 1; colors[i*3+2] = 0.53; // verde
+            } else if (colorChoice > 0.4) {
+                colors[i*3] = 0; colors[i*3+1] = 0.8; colors[i*3+2] = 1; // ciano
+            } else {
+                colors[i*3] = 0.7; colors[i*3+1] = 0; colors[i*3+2] = 1; // roxo
+            }
+        }
+        
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        
+        const particleMaterial = new THREE.PointsMaterial({ size: 0.12, vertexColors: true, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending });
+        const particlesMesh = new THREE.Points(particlesGeometry, particleMaterial);
+        scene.add(particlesMesh);
+        
+        // Anéis orbitais
+        const ringGeometry = new THREE.TorusGeometry(5, 0.08, 64, 300);
+        const ringMaterial = new THREE.MeshStandardMaterial({ color: 0x00FF87, emissive: 0x00AA55, emissiveIntensity: 0.5 });
+        const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+        ring.rotation.x = Math.PI / 2;
+        ring.position.y = -2;
+        scene.add(ring);
+        
+        const ring2Geometry = new THREE.TorusGeometry(7, 0.05, 64, 300);
+        const ring2Material = new THREE.MeshStandardMaterial({ color: 0x00E5FF, emissive: 0x0088AA, emissiveIntensity: 0.4 });
+        const ring2 = new THREE.Mesh(ring2Geometry, ring2Material);
+        ring2.rotation.z = Math.PI / 3;
+        ring2.rotation.x = Math.PI / 3;
+        ring2.position.y = 1;
+        scene.add(ring2);
+        
+        // Luzes
+        const ambientLight = new THREE.AmbientLight(0x111111);
+        scene.add(ambientLight);
+        const pointLight = new THREE.PointLight(0x00FF87, 0.8, 40);
+        pointLight.position.set(5, 10, 7);
+        scene.add(pointLight);
+        const pointLight2 = new THREE.PointLight(0x00E5FF, 0.5);
+        pointLight2.position.set(-5, 5, 10);
+        scene.add(pointLight2);
+        
+        // Animação
+        let time = 0;
+        function animate() {
+            requestAnimationFrame(animate);
+            time += 0.005;
+            
+            particlesMesh.rotation.y = time * 0.05;
+            particlesMesh.rotation.x = Math.sin(time * 0.1) * 0.1;
+            
+            ring.rotation.z += 0.005;
+            ring2.rotation.x += 0.003;
+            ring2.rotation.y += 0.004;
+            
+            camera.position.x = Math.sin(time * 0.1) * 1.5;
+            camera.position.y = Math.cos(time * 0.15) * 0.8;
+            camera.lookAt(0, 0, 0);
+            
+            renderer.render(scene, camera);
+        }
+        
+        animate();
+        
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+        
+        // ========== INTERAÇÕES DINÂMICAS DA PÁGINA ==========
+        // Configuração WhatsApp
+        const WA_PHONE = "5511999999999"; // 🔁 SUBSTITUIR PELO NÚMERO REAL
+        
+        function openWhatsApp(message = null) {
+            const msg = message || "Olá João! Vim pelo hub tecnológico e quero estruturar minha presença digital com sua arquitetura de ponta.";
+            const encoded = encodeURIComponent(msg);
+            const phone = WA_PHONE.replace(/\D/g, '');
+            
+            if (!phone || phone.length < 10 || phone === "5511999999999") {
+                alert("📱 WhatsApp em demonstração.\n\nCopie a mensagem:\n\n" + msg);
+                navigator.clipboard.writeText(msg);
+                return;
+            }
+            window.open(`https://wa.me/${phone}?text=${encoded}`, '_blank');
+        }
+        
+        // Navegação com efeito dinâmico (simula SPA ou redireciona)
+        function navigateTo(destination) {
+            const navCard = document.querySelector(`.nav-card[data-destination="${destination}"]`);
+            if (navCard) navCard.classList.add('btn-clicked');
+            
+            // Efeito de transição
+            document.body.style.transition = 'opacity 0.25s';
+            document.body.style.opacity = '0.7';
+            
+            setTimeout(() => {
+                // Simula navegação para páginas reais (caso existam)
+                let url = '';
+                switch(destination) {
+                    case 'servicos':
+                        url = 'servicos.html';
+                        break;
+                    case 'portfolio':
+                        url = 'portfolio.html';
+                        break;
+                    case 'sobre':
+                        url = 'sobre.html';
+                        break;
+                    default:
+                        url = '#';
+                }
+                
+                if (url !== '#') {
+                    window.location.href = url;
+                } else {
+                    document.body.style.opacity = '1';
+                    if (navCard) navCard.classList.remove('btn-clicked');
+                }
+            }, 180);
+        }
+        
+        // Eventos dos cards
+        const cards = document.querySelectorAll('.nav-card');
+        cards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isWhatsApp = card.getAttribute('data-whatsapp') === 'true';
+                const dest = card.getAttribute('data-destination');
+                
+                if (isWhatsApp) {
+                    openWhatsApp("Olá João! Quero me conectar diretamente para falarmos sobre arquitetura digital e soluções personalizadas.");
+                } else if (dest) {
+                    navigateTo(dest);
+                }
+            });
+        });
+        
+        // Botão CTA principal
+        const ctaBtn = document.getElementById('ctaPrincipal');
+        if (ctaBtn) {
+            ctaBtn.addEventListener('click', () => {
+                ctaBtn.classList.add('btn-clicked');
+                setTimeout(() => ctaBtn.classList.remove('btn-clicked'), 150);
+                openWhatsApp("Olá João! Gostaria de agendar um diagnóstico estratégico gratuito para minha presença digital.");
+            });
+        }
+        
+        // Avatar interativo
+        const avatar = document.getElementById('avatarClick');
+        if (avatar) {
+            avatar.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                // feedback sonoro visual
+                const badge = document.querySelector('.tech-badge');
+                badge.style.transform = 'scale(1.05)';
+                setTimeout(() => badge.style.transform = '', 300);
+            });
+        }
+        
+        // ========== ANIMAÇÃO DE CONTADOR NOS STATS ==========
+        const statNumbers = document.querySelectorAll('.stat-number');
+        const animateNumbers = () => {
+            statNumbers.forEach(el => {
+                const target = parseInt(el.getAttribute('data-count'));
+                if (isNaN(target)) return;
+                let current = 0;
+                const increment = target / 50;
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        el.innerText = Math.floor(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        el.innerText = target;
+                        if (el.getAttribute('data-count') === '97') el.innerText = '97%';
+                        else if (el.getAttribute('data-count') === '156') el.innerText = '156+';
+                        else el.innerText = target;
+                    }
+                };
+                updateCounter();
+            });
+        };
+        
+        // Disparar contadores quando visível
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateNumbers();
+                    observer.disconnect();
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        const statsSection = document.querySelector('.tech-stats');
+        if (statsSection) observer.observe(statsSection);
+        
+        // Efeito de digitação no título (opcional)
+        console.log('Hub Tecnológico | João Pereira — Ambiente 3D Ativo');
+    </script>
+</body>
+</html>
