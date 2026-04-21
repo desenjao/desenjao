@@ -487,7 +487,7 @@
     </style>
 </head>
 <body data-theme="dark">
-    <div class="theme-toggle">
+    <div class="theme-toggle" id="themeToggle">
         <button class="theme-btn active" data-theme="dark" onclick="setTheme('dark')">
             <i class="fas fa-moon"></i>
         </button>
@@ -496,10 +496,19 @@
         </button>
     </div>
 
+    <!-- WELCOME SCREEN COM BARRA DE PROGRESSO -->
     <div class="welcome-screen" id="welcomeScreen">
         <div class="glass-card">
             <h1>JOÃO PEREIRA</h1>
             <div class="subtitle">dev & design • desenjao</div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="loadingProgress"></div>
+            </div>
+            <div class="loading-text">
+                Carregando experiência <span id="loadedCount">0</span>/<span id="totalCount">0</span>
+            </div>
+            
             <button class="explore-btn" id="exploreBtn">
                 Explorar Portfólio
             </button>
@@ -508,54 +517,57 @@
 
     <div class="particles-background" id="particles"></div>
 
-    <main class="container">
-        <section class="hero">
-            <img src="img/ttle.png" alt="João Pereira - Dev & Design" loading="lazy" onerror="this.src='https://placehold.co/600x400/1a1a1a/00FF88?text=Desenjao'">
-        </section>
+    <!-- CONTEÚDO PRINCIPAL (INICIALMENTE ESCONDIDO) -->
+    <div class="main-content" id="mainContent">
+        <main class="container">
+            <section class="hero">
+                <img src="img/ttle.png" alt="João Pereira - Dev & Design" id="imgHero" data-src="img/ttle.png">
+            </section>
 
-        <section class="intro">
-            <h1>JOÃO PEREIRA</h1>
-            <p class="description">
-                 Especialista em infraestrutura digital. Cuido dos seus sites, funis e automações para você focar apenas na criação e nas vendas.   </p>
-            <div class="scroll-indicator">
-                <i class="fas fa-chevron-down"></i>
-            </div>
-        </section>
+            <section class="intro">
+                <h1>JOÃO PEREIRA</h1>
+                <p class="description">
+                     Especialista em infraestrutura digital. Cuido dos seus sites, funis e automações para você focar apenas na criação e nas vendas.
+                </p>
+                <div class="scroll-indicator">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </section>
 
-        <section class="buttons-grid">
-            <a href="servicos.html" class="btn-card">
-                <img src="img/1.png" alt="Serviços - Desenvolvimento e Design" loading="lazy" onerror="this.src='https://placehold.co/600x200/1a1a1a/00FF88?text=Servi%C3%A7os'">
-            </a>
-            <a href="" onclick="toggleWppModal(); return false;" class="btn-card">
-                <img src="img/2.png" alt="Perfil - João Pereira" loading="lazy" onerror="this.src='https://placehold.co/600x200/1a1a1a/00FF88?text=Perfil'">
-            </a>
-            <a href="profile.html"  class="btn-card">
-                <img src="img/3.png" alt="Contato - Vamos conversar" loading="lazy" onerror="this.src='https://placehold.co/600x200/1a1a1a/00FF88?text=Contato'">
-            </a>
-            <a href="mentorias.html" class="btn-card" target="_blank">
-                <img src="img/4.png" alt="Instagram - @desenjao_editor" loading="lazy" onerror="this.src='https://placehold.co/600x200/1a1a1a/00FF88?text=Instagram'">
-            </a>
-        </section>
-
-        <section class="cta-section">
-            <p>Precisa de código bem escrito, design intuitivo e performance de verdade? Bora construir algo sólido.</p>
-            <div class="social-links">
-                <a href="#" onclick="toggleWppModal(); return false;">
-                    <i class="fa-brands fa-whatsapp"></i>
+            <section class="buttons-grid">
+                <a href="servicos.html" class="btn-card">
+                    <img src="img/1.png" alt="Serviços" id="img1" data-src="img/1.png">
                 </a>
-                <a href="https://instagram.com/desenjao_editor" target="_blank">
-                    <i class="fa-brands fa-instagram"></i>
+                <a href="#" onclick="toggleWppModal(); return false;" class="btn-card">
+                    <img src="img/2.png" alt="Perfil" id="img2" data-src="img/2.png">
                 </a>
-            </div>
-        </section>
+                <a href="profile.html" class="btn-card">
+                    <img src="img/3.png" alt="Contato" id="img3" data-src="img/3.png">
+                </a>
+                <a href="mentorias.html" class="btn-card" target="_blank">
+                    <img src="img/4.png" alt="Instagram" id="img4" data-src="img/4.png">
+                </a>
+            </section>
 
-        <section class="hero-bottom">
-            <img src="img/header.png" alt="Background - Dev & Design" loading="lazy"
-                 onerror="this.src='https://placehold.co/600x400/1a1a1a/00FF88?text=Desenjao'">
-        </section>
-    </main>
+            <section class="cta-section">
+                <p>Precisa de código bem escrito, design intuitivo e performance de verdade? Bora construir algo sólido.</p>
+                <div class="social-links">
+                    <a href="#" onclick="toggleWppModal(); return false;">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                    <a href="https://instagram.com/desenjao_editor" target="_blank">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                </div>
+            </section>
 
-    <div class="whatsapp-float" onclick="toggleWppModal()">
+            <section class="hero-bottom">
+                <img src="img/header.png" alt="Background" id="imgHeader" data-src="img/header.png">
+            </section>
+        </main>
+    </div>
+
+    <div class="whatsapp-float" id="whatsappFloat" onclick="toggleWppModal()">
         <svg viewBox="0 0 32 32" class="whatsapp-icon">
             <path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.733 5.476 2.014 7.787l-2.014 7.353 7.525-1.972c2.31 1.274 4.975 2.002 7.81 2.002 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.333c-2.608 0-5.051-0.704-7.155-1.925l-0.513-0.3-4.469 1.17 1.192-4.353-0.33-0.525c-1.332-2.121-2.099-4.632-2.099-7.327 0-7.359 5.975-13.333 13.333-13.333s13.333 5.975 13.333 13.333-5.975 13.333-13.333 13.333zM22.507 19.34c-0.356-0.178-2.107-1.039-2.441-1.156-0.333-0.117-0.577-0.178-0.819 0.178s-0.939 1.156-1.152 1.391c-0.213 0.235-0.427 0.267-0.783 0.089-0.356-0.178-1.504-0.554-2.864-1.769-1.059-0.945-1.774-2.112-1.981-2.469-0.213-0.356-0.023-0.548 0.155-0.725 0.161-0.158 0.356-0.415 0.534-0.622s0.237-0.356 0.356-0.593c0.118-0.237 0.059-0.445-0.030-0.622-0.089-0.178-0.819-1.975-1.123-2.706-0.296-0.713-0.598-0.617-0.822-0.628-0.213-0.011-0.457-0.013-0.701-0.013s-0.641 0.091-0.976 0.46c-0.334 0.368-1.275 1.246-1.275 3.039s1.309 3.522 1.488 3.759c0.178 0.237 2.575 3.931 6.237 5.513 0.871 0.377 1.551 0.602 2.081 0.771 0.875 0.278 1.672 0.239 2.301 0.145 0.702-0.105 2.107-0.86 2.404-1.691 0.297-0.832 0.297-1.545 0.208-1.693-0.089-0.148-0.326-0.237-0.682-0.415z"></path>
         </svg>
@@ -589,7 +601,144 @@
 
     <script>
         const phoneNumber = "5589981202147";
-
+        
+        // Lista de imagens a pré-carregar
+        const imagesToPreload = [
+            'img/ttle.png',
+            'img/1.png',
+            'img/2.png',
+            'img/3.png',
+            'img/4.png',
+            'img/header.png'
+        ];
+        
+        let loadedImages = 0;
+        let isRedirecting = false;
+        let imagesLoadedStatus = new Array(imagesToPreload.length).fill(false);
+        
+        const totalImages = imagesToPreload.length;
+        const totalSpan = document.getElementById('totalCount');
+        const loadedSpan = document.getElementById('loadedCount');
+        const progressBar = document.getElementById('loadingProgress');
+        const exploreBtn = document.getElementById('exploreBtn');
+        const welcomeScreen = document.getElementById('welcomeScreen');
+        const mainContent = document.getElementById('mainContent');
+        const themeToggle = document.getElementById('themeToggle');
+        const whatsappFloat = document.getElementById('whatsappFloat');
+        
+        totalSpan.textContent = totalImages;
+        
+        function updateProgress() {
+            const percentage = (loadedImages / totalImages) * 100;
+            if (progressBar) progressBar.style.width = `${percentage}%`;
+            if (loadedSpan) loadedSpan.textContent = loadedImages;
+            
+            console.log(`Carregamento: ${loadedImages}/${totalImages} (${Math.round(percentage)}%)`);
+            
+            if (loadedImages === totalImages && !isRedirecting) {
+                isRedirecting = true;
+                console.log('Todas imagens carregadas! Exibindo conteúdo...');
+                
+                // Ativa o botão explorar
+                exploreBtn.classList.add('active');
+                
+                // Mostra o conteúdo principal
+                mainContent.classList.add('visible');
+                themeToggle.classList.add('visible');
+                whatsappFloat.classList.add('visible');
+                
+                // Aguarda o usuário clicar para fechar a welcome screen
+                exploreBtn.addEventListener('click', function onExplore() {
+                    welcomeScreen.classList.add('hidden');
+                    exploreBtn.removeEventListener('click', onExplore);
+                    
+                    // Inicia animações de revelação
+                    setTimeout(() => {
+                        const revealElements = document.querySelectorAll('.btn-card, .cta-section, .hero-bottom');
+                        const revealObserver = new IntersectionObserver((entries) => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    entry.target.classList.add('revealed');
+                                    revealObserver.unobserve(entry.target);
+                                }
+                            });
+                        }, { threshold: 0.1, rootMargin: '50px' });
+                        revealElements.forEach(el => revealObserver.observe(el));
+                    }, 100);
+                });
+            }
+        }
+        
+        function markImageLoaded(index) {
+            if (imagesLoadedStatus[index]) return;
+            imagesLoadedStatus[index] = true;
+            loadedImages++;
+            updateProgress();
+        }
+        
+        function preloadImage(src, index) {
+            return new Promise((resolve) => {
+                // Verifica cache
+                const testImg = new Image();
+                testImg.src = src;
+                
+                if (testImg.complete) {
+                    console.log(`Cache hit: ${src}`);
+                    markImageLoaded(index);
+                    resolve();
+                    return;
+                }
+                
+                const img = new Image();
+                
+                const timeout = setTimeout(() => {
+                    if (!imagesLoadedStatus[index]) {
+                        console.warn(`Timeout: ${src}`);
+                        markImageLoaded(index);
+                        resolve();
+                    }
+                }, 5000);
+                
+                img.onload = () => {
+                    clearTimeout(timeout);
+                    console.log(`Loaded: ${src}`);
+                    markImageLoaded(index);
+                    resolve();
+                };
+                
+                img.onerror = () => {
+                    clearTimeout(timeout);
+                    console.error(`Error: ${src}`);
+                    markImageLoaded(index);
+                    resolve();
+                };
+                
+                img.src = src;
+            });
+        }
+        
+        async function startPreloading() {
+            console.log('Iniciando pré-carregamento de imagens...');
+            const promises = imagesToPreload.map((src, index) => preloadImage(src, index));
+            await Promise.all(promises);
+            console.log('Pré-carregamento completo!');
+        }
+        
+        // Fallback de segurança
+        setTimeout(() => {
+            if (!isRedirecting && loadedImages < totalImages) {
+                console.warn('Fallback ativado - forçando exibição');
+                isRedirecting = true;
+                exploreBtn.classList.add('active');
+                mainContent.classList.add('visible');
+                themeToggle.classList.add('visible');
+                whatsappFloat.classList.add('visible');
+                exploreBtn.addEventListener('click', () => {
+                    welcomeScreen.classList.add('hidden');
+                });
+            }
+        }, 8000);
+        
         function setTheme(theme) {
             document.body.setAttribute('data-theme', theme);
             document.querySelectorAll('.theme-btn').forEach(btn => {
@@ -597,34 +746,10 @@
             });
             localStorage.setItem('theme', theme);
         }
-
+        
         const savedTheme = localStorage.getItem('theme') || 'dark';
         setTheme(savedTheme);
-
-        function hideWelcomeScreen() {
-            const welcomeScreen = document.getElementById('welcomeScreen');
-            welcomeScreen.classList.add('hidden');
-        }
-
-        setTimeout(hideWelcomeScreen, 2500);
-        document.getElementById('exploreBtn').addEventListener('click', hideWelcomeScreen);
-
-        const revealElements = document.querySelectorAll('.btn-card, .cta-section, .hero-bottom');
         
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('revealed');
-                    revealObserver.unobserve(entry.target);
-                }
-            });
-        }, { 
-            threshold: 0.1,
-            rootMargin: '50px'
-        });
-
-        revealElements.forEach(el => revealObserver.observe(el));
-
         function createParticles() {
             const container = document.getElementById('particles');
             const isMobile = window.innerWidth < 768;
@@ -656,31 +781,32 @@
                 container.appendChild(particle);
             }
         }
-
+        
         function toggleWppModal() {
             const modal = document.getElementById("wppModal");
             modal.style.display = modal.style.display === "flex" ? "none" : "flex";
         }
-
+        
         function sendWppMsg(message) {
             window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
             toggleWppModal();
         }
-
+        
         window.onclick = (event) => {
             const modal = document.getElementById("wppModal");
             if (event.target === modal) toggleWppModal();
         }
-
+        
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Escape') {
                 const modal = document.getElementById("wppModal");
                 if (modal.style.display === "flex") toggleWppModal();
             }
         });
-
+        
         document.addEventListener('DOMContentLoaded', () => {
             createParticles();
+            startPreloading();
         });
     </script>
 </body>

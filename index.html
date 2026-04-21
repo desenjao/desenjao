@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
-               * {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -39,7 +39,6 @@
             z-index: 0;
         }
 
-        /* Camada de partículas */
         .particles-loading {
             position: absolute;
             width: 100%;
@@ -55,7 +54,6 @@
             animation: floatLiquid 12s infinite ease-in-out;
         }
 
-        /* Efeito de gradiente líquido */
         .liquid-overlay {
             position: absolute;
             width: 100%;
@@ -70,7 +68,6 @@
             z-index: 2;
         }
 
-        /* Efeito de vinheta */
         .vignette {
             position: absolute;
             width: 100%;
@@ -81,18 +78,9 @@
         }
 
         @keyframes floatLiquid {
-            0%, 100% { 
-                transform: translate(0, 0) scale(1);
-                opacity: 0.3;
-            }
-            33% { 
-                transform: translate(2%, -2%) scale(1.1);
-                opacity: 0.5;
-            }
-            66% { 
-                transform: translate(-1%, 3%) scale(0.9);
-                opacity: 0.2;
-            }
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            33% { transform: translate(2%, -2%) scale(1.1); opacity: 0.5; }
+            66% { transform: translate(-1%, 3%) scale(0.9); opacity: 0.2; }
         }
 
         @keyframes liquidMove {
@@ -101,7 +89,6 @@
             100% { transform: scale(1) rotate(-2deg); opacity: 0.5; }
         }
 
-        /* ===== CARD LIQUID GLASS ===== */
         .loading-container {
             position: relative;
             z-index: 10;
@@ -114,15 +101,11 @@
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 48px;
-            box-shadow: 
-                0 30px 60px -20px rgba(0, 0, 0, 0.8),
-                0 0 0 1px rgba(255, 255, 255, 0.1) inset,
-                0 0 40px rgba(76, 175, 80, 0.3);
+            box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1) inset, 0 0 40px rgba(76, 175, 80, 0.3);
             animation: cardAppear 1s cubic-bezier(0.16, 1, 0.3, 1);
             overflow: hidden;
         }
 
-        /* Reflexo líquido no card */
         .loading-container::before {
             content: '';
             position: absolute;
@@ -136,7 +119,6 @@
             pointer-events: none;
         }
 
-        /* Brilho líquido nas bordas */
         .loading-container::after {
             content: '';
             position: absolute;
@@ -144,11 +126,7 @@
             left: -2px;
             right: -2px;
             bottom: -2px;
-            background: linear-gradient(45deg, 
-                rgba(76, 175, 80, 0.5), 
-                rgba(255, 255, 255, 0.3), 
-                rgba(56, 142, 60, 0.5), 
-                rgba(76, 175, 80, 0.5));
+            background: linear-gradient(45deg, rgba(76, 175, 80, 0.5), rgba(255, 255, 255, 0.3), rgba(56, 142, 60, 0.5), rgba(76, 175, 80, 0.5));
             border-radius: 50px;
             z-index: -1;
             animation: borderGlow 4s linear infinite;
@@ -167,16 +145,8 @@
         }
 
         @keyframes cardAppear {
-            from {
-                opacity: 0;
-                transform: scale(0.9) translateY(30px);
-                filter: blur(10px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-                filter: blur(0);
-            }
+            from { opacity: 0; transform: scale(0.9) translateY(30px); filter: blur(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
         }
 
         h1 {
@@ -204,7 +174,6 @@
             text-transform: uppercase;
         }
 
-        /* Barra de progresso líquida */
         .liquid-progress {
             width: 100%;
             height: 4px;
@@ -220,13 +189,7 @@
         .liquid-fill {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, 
-                #4CAF50, 
-                #2E7D32, 
-                #4CAF50,
-                #2E7D32,
-                #4CAF50
-            );
+            background: linear-gradient(90deg, #4CAF50, #2E7D32, #4CAF50, #2E7D32, #4CAF50);
             background-size: 300% 100%;
             border-radius: 4px;
             transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -242,11 +205,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(255, 255, 255, 0.4), 
-                transparent
-            );
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
             animation: liquidReflection 1.5s infinite;
         }
 
@@ -261,7 +220,6 @@
             100% { transform: translateX(200%); }
         }
 
-        /* Status líquido */
         .loading-status {
             color: rgba(255, 255, 255, 0.6);
             font-size: 0.95rem;
@@ -278,7 +236,6 @@
             text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
         }
 
-        /* Bolhas líquidas para contador */
         .bubble-counter {
             display: flex;
             justify-content: center;
@@ -323,7 +280,6 @@
             opacity: 1;
         }
 
-        /* Mensagem final líquida */
         .ready-message {
             color: #FFFFFF;
             margin-top: 25px;
@@ -370,7 +326,6 @@
             letter-spacing: 1px;
         }
 
-        /* Porcentagem líquida */
         .percentage-liquid {
             font-size: 1.2rem;
             font-weight: 600;
@@ -387,47 +342,38 @@
     </style>
 </head>
 <body>
-    <!-- Fundo Cinematográfico -->
     <div class="cinematic-bg">
         <div class="particles-loading" id="particles-loading"></div>
         <div class="liquid-overlay"></div>
         <div class="vignette"></div>
     </div>
 
-    <!-- Card Liquid Glass -->
     <div class="loading-container">
         <h1>Desenjão</h1>
         <div class="subtitle-load">Programador</div>
         
-        <!-- Barra de progresso líquida -->
         <div class="liquid-progress">
             <div class="liquid-fill" id="progressBar"></div>
         </div>
 
-        <!-- Porcentagem líquida -->
         <div class="percentage-liquid" id="percentageDisplay">0%</div>
 
-        <!-- Status -->
         <div class="loading-status" id="loadingStatus">
-            <span id="loadedCount">0</span>/<span id="totalCount">6</span> frames carregados
+            <span id="loadedCount">0</span>/<span id="totalCount">0</span> frames carregados
         </div>
 
-        <!-- Bolhas líquidas (indicadores) -->
         <div class="bubble-counter" id="bubbleCounter"></div>
 
-        <!-- Mensagem final -->
         <div class="ready-message" id="readyMessage">
             <i class="fas fa-check-circle"></i>
             Experiência pronta
         </div>
 
-        <!-- Info adicional -->
         <div class="redirect-info" id="redirectInfo">
             preparando sua experiência cinematográfica
         </div>
     </div>
 
-    <!-- Ícones (para o check) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <script>
@@ -450,7 +396,15 @@
         const bubbleCounter = document.getElementById('bubbleCounter');
         const percentageDisplay = document.getElementById('percentageDisplay');
         
-        // Criar bolhas líquidas
+        let loadedImages = 0;
+        let isRedirecting = false; // Evita múltiplos redirecionamentos
+        const totalImages = imagesToPreload.length;
+        totalSpan.textContent = totalImages;
+        
+        // Array para controlar quais imagens já foram carregadas
+        const imageLoadedStatus = new Array(totalImages).fill(false);
+        
+        // Criar bolhas
         imagesToPreload.forEach((_, index) => {
             const bubble = document.createElement('div');
             bubble.className = 'bubble';
@@ -458,52 +412,106 @@
             bubbleCounter.appendChild(bubble);
         });
 
-        let loadedImages = 0;
-        const totalImages = imagesToPreload.length;
-        totalSpan.textContent = totalImages;
-
+        // Função para atualizar a interface (SINCRONIZADA)
+        function updateProgress() {
+            const percentage = (loadedImages / totalImages) * 100;
+            const roundedPercentage = Math.round(percentage);
+            
+            // Atualiza barra de progresso
+            progressBar.style.width = `${percentage}%`;
+            
+            // Atualiza porcentagem
+            percentageDisplay.textContent = `${roundedPercentage}%`;
+            
+            // Atualiza texto de status
+            redirectInfo.textContent = `processando... ${roundedPercentage}%`;
+            
+            console.log(`Progresso: ${loadedImages}/${totalImages} (${roundedPercentage}%)`); // Debug
+            
+            // Verifica se completou
+            if (loadedImages === totalImages && !isRedirecting) {
+                isRedirecting = true;
+                redirectInfo.textContent = 'redirecionando em 1 segundo';
+                readyMessage.classList.add('show');
+                
+                console.log('Todas imagens carregadas! Redirecionando...');
+                
+                setTimeout(() => {
+                    window.location.href = 'biosite.html';
+                }, 1000);
+            }
+        }
+        
         function markImageLoaded(index) {
+            // Evita marcar a mesma imagem duas vezes
+            if (imageLoadedStatus[index]) return;
+            
+            imageLoadedStatus[index] = true;
+            loadedImages++;
+            loadedSpan.textContent = loadedImages;
+            
+            // Marca a bolha
             const bubble = document.getElementById(`bubble-${index}`);
             if (bubble) bubble.classList.add('loaded');
+            
+            // Atualiza progresso
+            updateProgress();
         }
 
         function preloadImage(src, index) {
-            return new Promise((resolve, reject) => {
-                const img = new Image();
-                img.src = src;
-                img.onload = () => {
-                    loadedImages++;
-                    loadedSpan.textContent = loadedImages;
-                    
-                    const percentage = (loadedImages / totalImages) * 100;
-                    progressBar.style.width = `${percentage}%`;
-                    percentageDisplay.textContent = `${Math.round(percentage)}%`;
-                    
+            return new Promise((resolve) => {
+                // Verifica se a imagem já está no cache do navegador
+                const cachedImg = new Image();
+                cachedImg.src = src;
+                
+                // Se a imagem já está completa no cache
+                if (cachedImg.complete) {
+                    console.log(`Imagem ${index} já estava em cache: ${src}`);
                     markImageLoaded(index);
-                    
-                    if (loadedImages === totalImages) {
-                        redirectInfo.textContent = 'redirecionando em 1 segundo';
-                        readyMessage.classList.add('show');
-                        
-                        // Redireciona
-                        setTimeout(() => {
-                            window.location.href = 'biosite.html';
-                        }, 1000);
-                    } else {
-                        redirectInfo.textContent = `processando... ${Math.round(percentage)}%`;
-                    }
-                    
+                    resolve();
+                    return;
+                }
+                
+                // Se não está em cache, carrega normalmente
+                const img = new Image();
+                
+                img.onload = () => {
+                    console.log(`Imagem ${index} carregada: ${src}`);
+                    markImageLoaded(index);
                     resolve();
                 };
+                
                 img.onerror = () => {
-                    console.error(`Erro: ${src}`);
-                    loadedImages++;
-                    loadedSpan.textContent = loadedImages;
-                    const percentage = (loadedImages / totalImages) * 100;
-                    progressBar.style.width = `${percentage}%`;
-                    percentageDisplay.textContent = `${Math.round(percentage)}%`;
+                    console.error(`Erro ao carregar: ${src}`);
+                    // Mesmo com erro, conta como "carregado" para não travar
                     markImageLoaded(index);
-                    reject();
+                    resolve();
+                };
+                
+                // Timeout para não travar para sempre
+                const timeout = setTimeout(() => {
+                    if (!imageLoadedStatus[index]) {
+                        console.warn(`Timeout para imagem ${index}: ${src}`);
+                        markImageLoaded(index);
+                        resolve();
+                    }
+                }, 5000);
+                
+                img.src = src;
+                
+                // Limpa timeout se carregar
+                img.onload = () => {
+                    clearTimeout(timeout);
+                    console.log(`Imagem ${index} carregada: ${src}`);
+                    markImageLoaded(index);
+                    resolve();
+                };
+                
+                img.onerror = () => {
+                    clearTimeout(timeout);
+                    console.error(`Erro ao carregar: ${src}`);
+                    markImageLoaded(index);
+                    resolve();
                 };
             });
         }
@@ -521,7 +529,6 @@
                 particle.style.height = `${size}px`;
                 particle.style.left = `${Math.random() * 100}%`;
                 particle.style.top = `${Math.random() * 100}%`;
-                
                 particle.style.animationDelay = `${Math.random() * 5}s`;
                 particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
                 
@@ -529,20 +536,31 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
+        async function startLoading() {
             createParticles();
             
-            const loadPromises = imagesToPreload.map((src, index) => 
-                preloadImage(src, index)
-            );
+            console.log('Iniciando pré-carregamento...');
             
-            // Fallback
-            setTimeout(() => {
-                if (loadedImages < totalImages) {
-                    window.location.href = 'biosite.html';
-                }
-            }, 8000);
-        });
+            // Carrega todas as imagens em paralelo
+            const loadPromises = imagesToPreload.map((src, index) => preloadImage(src, index));
+            
+            // Aguarda todas completarem
+            await Promise.all(loadPromises);
+            
+            console.log('Pré-carregamento finalizado!');
+        }
+
+        // Fallback de segurança
+        setTimeout(() => {
+            if (!isRedirecting && loadedImages < totalImages) {
+                console.warn('Fallback ativado - forçando redirecionamento');
+                isRedirecting = true;
+                window.location.href = 'biosite.html';
+            }
+        }, 8000);
+        
+        // Inicia o carregamento
+        startLoading();
     </script>
 </body>
 </html>
