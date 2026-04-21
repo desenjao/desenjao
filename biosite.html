@@ -47,13 +47,16 @@
             --shadow-color: rgba(0, 0, 0, 0.1);
         }
 
+        /* CORREÇÃO 1: Garantir rolagem padrão no body */
         html, body {
             background-color: var(--bg-primary);
             font-family: 'Inter', sans-serif;
             color: var(--text-primary);
             overflow-x: hidden;
+            overflow-y: auto; /* Garante rolagem vertical */
             line-height: 1.6;
             transition: background-color 0.3s ease;
+            height: 100%; /* Garante que o body ocupe a tela toda */
         }
 
         .hero, .hero-bottom, .btn-card {
@@ -199,17 +202,19 @@
             flex-direction: column;
             align-items: center;
             gap: var(--spacing-md);
+            padding-bottom: 20px; /* CORREÇÃO 3: Melhora a sensação de rolagem final */
         }
 
+        /* CORREÇÃO 2: Removido clip-path que causa bugs de rolagem e substituído por border-radius visualmente idêntico */
         .hero {
             width: 100%;
             height: 65vh;
             max-height: 650px;
             min-height: 450px;
             position: relative;
-            clip-path: ellipse(150% 100% at 50% 0%);
+            /* clip-path removido para evitar travamentos de rolagem */
             overflow: hidden;
-            border-radius: 0 0 30px 30px;
+            border-radius: 0 0 30% 30% / 0 0 20% 20%; /* Mantém a aparência arredondada igual ao clip-path ellipse */
         }
 
         .hero img, .hero-bottom img {
